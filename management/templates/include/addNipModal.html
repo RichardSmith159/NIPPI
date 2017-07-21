@@ -1,0 +1,51 @@
+
+
+<div id="addNipModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Register New Nip</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <h4>Name:</h4>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="newNipName">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <h4>Location:</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" id="newNipLocationDropdown" type="button" data-toggle="dropdown">
+                                    Location
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% for location in locations %}
+                                        <li class="dropdownOption" id="{{location.pk}}">{{location.name}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12"><hr></div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <button type="button" class="btn" data-dismiss="modal">CANCEL</button>
+                        </div>
+                        <div class="col-md-6" align="right">
+                            <button type="button" class="btn acceptButton" id="acceptNewNip">ACCEPT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

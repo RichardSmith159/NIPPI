@@ -18,3 +18,4 @@ class Nip(models.Model):
 
     def generate_uid(self):
         self.uid = "%d_%s" % (self.pk, self.name)
+        self.save()

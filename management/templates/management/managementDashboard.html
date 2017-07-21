@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block extra_js_files %}
-<script type="text/javascript" src="{% static 'js/locations.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/users.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/locations.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/users.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/nips.js' %}"></script>
 {% endblock %}
 
 {% block header_section %}
@@ -36,6 +37,7 @@
 {% include 'include/addLocationModal.html' %}
 {% include 'include/addUserModal.html' %}
 {% include 'include/confirmationModal.html' %}
+{% include 'include/addNipModal.html' %}
 
 <form id="add_location_form" method="post" name="add_location_form">
     {% csrf_token %}
@@ -122,10 +124,13 @@
                         <td class="deleteCell"><button type="button" class="btn btn-xs btn-danger openDeleteLocation">Delete</button></td>
                     </tr>
                 {% endfor %}
-                <td colspan="5" align="middle">
-                <button type="button" class="btn btn-xs addObjectButton" id="openAddLocation">
-                    <h2 class="buttonAddText">+</h2>
-                </button>
+                <tr>
+                    <td colspan="5" align="middle">
+                        <button type="button" class="btn btn-xs addObjectButton" id="openAddLocation">
+                            <h2 class="buttonAddText">+</h2>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -159,6 +164,13 @@
                         <td class="deleteCell"><button type="button" class="btn btn-xs btn-danger openDeleteNip">Delete</button></td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td colspan="7" align="middle">
+                        <button type="button" class="btn btn-xs addObjectButton" id="openAddNip">
+                            <h2 class="buttonAddText">+</h2>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

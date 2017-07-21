@@ -6,6 +6,35 @@ from django.contrib.auth.models import User
 
 import passwordGen
 
+class AddNipForm(forms.Form):
+
+    new_nip_name = forms.CharField(max_length = 20, required = True)
+    new_nip_location_pk = forms.IntegerField(required = True)
+
+    def process(self, request):
+
+        cleaned_new_nip_name = self.cleaned_data["new_nip_name"]
+        cleaned_new_nip_location_pk = self.cleaned_data["new_nip_location_pk"]
+
+        try:
+
+            selected_location = NipLocation.objects.get(pk = cleaned_new_nip_location_pk)
+
+        except NipLocation.DoesNotExist:
+
+            messages.error(request, "The selected location could not be found in the database.")
+        
+        else:
+
+            new_nip = Nip.objects.create(
+                name = cleaned_new_nip_name,
+                location = selected_location
+            )
+
+            new_nip.generate_uid()
+
+        
+
 class DeleteUserForm(forms.Form):
 
     user_pk = forms.IntegerField(required = True)
