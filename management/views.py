@@ -17,9 +17,24 @@ def management_dashboard(request):
 
     add_user_form = forms.AddUserForm()
     delete_user_form = forms.DeleteUserForm()
+
+    add_nip_form = forms.AddNipForm()
     
 
     if request.method == "POST":
+
+        if "add_nip_form" in request.POST:
+
+            add_nip_form = forms.AddNipForm(request.POST)
+
+            if add_nip_form.is_valid():
+
+                add_nip_form.process(request)
+            
+            else:
+
+                form_errors.convert_form_errors_to_messages(add_nip_form, request)
+
 
         if "delete_user_form" in request.POST:
 
@@ -84,6 +99,7 @@ def management_dashboard(request):
             "delete_location_form": delete_location_form,
             "add_user_form": add_user_form,
             "delete_user_form": delete_user_form,
+            "add_nip_form": add_nip_form
         }
     )
 

@@ -1,6 +1,6 @@
 from django import forms
 from django.db import IntegrityError
-from nips.models import NipLocation
+from nips.models import NipLocation, Nip
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -26,12 +26,25 @@ class AddNipForm(forms.Form):
         
         else:
 
-            new_nip = Nip.objects.create(
-                name = cleaned_new_nip_name,
-                location = selected_location
-            )
 
-            new_nip.generate_uid()
+            try:
+
+                nip = Nip.objects.get(name = cleaned_new_nip_name)
+            
+            except Nip.DoesNotExist:
+
+                new_nip = Nip.objects.create(
+                    name = cleaned_new_nip_name,
+                    location = selected_location
+                )
+
+                new_nip.generate_uid()
+
+                messages.success(request, "The new nip '%s' was created successfully." % cleaned_new_nip_name)
+
+            else:
+
+                messages.error(request, "A nip with name '%s' already exists. Nip names must be unique." % cleaned_new_nip_name)
 
         
 

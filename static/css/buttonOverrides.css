@@ -35,6 +35,19 @@
     width: 80%;
 }
 
+.openNipDetails {
+    width: 80%;
+}
+.openNipRecords {
+    width: 80%;
+}
+.openEditNip {
+    width: 80%;
+}
+.openDeleteNip {
+    width: 80%;
+}
+
 .acceptButton {
     background-color: #2b374b;
     color: #d03161;
