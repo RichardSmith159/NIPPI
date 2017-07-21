@@ -153,7 +153,6 @@
                     <th>UID</th>
                     <th>Name</th>
                     <th>Location</th>
-                    <th>Sirens</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -166,7 +165,6 @@
                         <td class="uidCell">{{nip.uid}}</td>
                         <td class="nameCell">{{nip.name}}</td>
                         <td class="locationCell">{{nip.location.name}}</td>
-                        <td class="sirenCountCell">{{nip.siren_set.all.count}}</td>
                         <td class="detailsCell"><button type="button" class="btn btn-xs btn-info openNipDetails">Details</button></td>
                         <td class="recordsCell"><button type="button" class="btn btn-xs btn-info openNipRecords">View Records</button></td>
                         <td class="editCell"><button type="button" class="btn btn-xs btn-warning openEditNip">Edit</button></td>
@@ -174,7 +172,7 @@
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td colspan="8" align="middle">
+                    <td colspan="7" align="middle">
                         <button type="button" class="btn btn-xs addObjectButton" id="openAddNip">
                             <h2 class="buttonAddText">+</h2>
                         </button>
