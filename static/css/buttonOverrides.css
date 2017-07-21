@@ -1,0 +1,45 @@
+.addObjectButton {
+     /* background-color: #178a94 !important;  */
+     background-color: #bfd8d1 !important; 
+    color: #d03161 !important;
+    width: 100px;
+}
+
+.addObjectButton:hover {
+    color: #ee8080 !important;
+}
+
+.buttonAddText {
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+}
+
+.openDeleteUser {
+    width: 70%;
+}
+.openUserDetails {
+    width: 50%;
+}
+.openLocationDetails {
+    width: 70%;
+}
+.openEditLocation {
+    width: 80%;
+}
+.openDeleteLocation {
+    width: 80%;
+}
+.openEditLocation {
+    width: 80%;
+}
+
+.acceptButton {
+    background-color: #2b374b;
+    color: #d03161;
+}
+
+.acceptButton:hover {
+    color: #d03161;
+}

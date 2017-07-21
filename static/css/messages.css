@@ -1,0 +1,26 @@
+
+/* make messages full width and float infront everything */
+.messageContainer {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    z-index: 10;
+}
+
+/* set background colors on messages based on content */
+.message_error {
+    background-color: #d9534f;
+}
+
+.message_info {
+    background-color: #f0ad4e;
+}
+
+.message_success {
+    background-color: #5cb85c;
+}
+
+.closeMessage {
+    width: 2%;
+}

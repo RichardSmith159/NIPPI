@@ -1,0 +1,27 @@
+.section {
+    margin: 0px; 
+    padding: 0px;
+    color: #bfd8d1;
+    width: 49%;
+}
+.sectionHeader {
+    color: #d03161;
+    letter-spacing: 2px;
+    margin: 0px; 
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-left: 0px; 
+    padding-right: 0px; 
+}
+.sectionHeaderText {
+    margin: 0px;
+}
+
+
+.sectionLeft {
+    margin-right: 10px !important;
+}
+
+.sectionRight {
+    margin-left: 10px !important;
+}

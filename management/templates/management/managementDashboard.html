@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css_files %}
+    <link href="{% static 'css/management.css' %}" rel="stylesheet">
+    <link href="{% static 'css/buttonOverrides.css' %}" rel="stylesheet">
+    <link href="{% static 'css/modalOverrides.css' %}" rel="stylesheet">
+    <link href="{% static 'css/section.css' %}" rel="stylesheet">
+    <link href="{% static 'css/tables.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js_files %}
+<script type="text/javascript" src="{% static 'js/locations.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/users.js' %}"></script>
+{% endblock %}
+
+{% block header_section %}
+    <div class="col-md-12 container headerContainer">
+        <div class="col-md-4" align="left">
+            <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:64px; height:64px;">
+            <h2 class="headerText">NIPPI</h2>
+        </div>
+        <div class="col-md-4">
+            <h2 class="headerSubtext" id="pageHeader">Management Dashboard</h2>
+        </div>
+        <div class="col-md-4" align="right">
+            <h4 class="headerSubtext">Welcome {{current_user}}</h4>
+            <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" style="width:64px; height:64px;">
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block page_content %}
+{% include 'include/addLocationModal.html' %}
+{% include 'include/addUserModal.html' %}
+{% include 'include/confirmationModal.html' %}
+
+<form id="add_location_form" method="post" name="add_location_form">
+    {% csrf_token %}
+    {% for field in add_location_form %}
+        {{field.as_hidden}}
+    {% endfor %}
+</form>
+
+<form id="delete_location_form" method="post" name="delete_location_form">
+    {% csrf_token %}
+    {% for field in delete_location_form %}
+        {{field.as_hidden}}
+    {% endfor %}
+</form>
+
+<form id="add_user_form" method="post" name="add_user_form">
+    {% csrf_token %}
+    {% for field in add_user_form %}
+        {{field.as_hidden}}
+    {% endfor %}
+</form>
+
+<form id="delete_user_form" method="post" name="delete_user_form">
+    {% csrf_token %}
+    {% for field in delete_user_form %}
+        {{field.as_hidden}}
+    {% endfor %}
+</form>
+
+<div class="col-md-6 section sectionLeft">
+    <div class="col-md-12 sectionHeader">
+        <h3 class="sectionHeaderText">USERS</h3>
+    </div>
+    <div class="col-md-12 tableContainer" id="usersTableContainer">
+        <table class="table managementTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Subs</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr class="userRow" id="{{user.pk}}">
+                        <td class="usernameCell">{{user.username}}</td>
+                        <td class="subCountCell">{{user.subscription_set.all.count}}</td>
+                        <td class="detailsCell"><button type="button" class="btn btn-xs btn-info openUserDetails">Details</button></td>
+                        <td class="deleteCell"><button type="button" class="btn btn-xs btn-danger openDeleteUser">Delete</button></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4" align="middle">
+                        <button type="button" class="btn btn-xs addObjectButton" id="openAddUser">
+                            <h2 class="buttonAddText">+</h2>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-6 section sectionRight">
+    <div class="col-md-12 sectionHeader">
+        <h3 class="sectionHeaderText">LOCATIONS</h3>
+    </div>
+    <div class="col-md-12 tableContainer" id="locationsTableContainer">
+        <table class="table managementTable">
+            <thead>
+                <th>Name</th>
+                <th>Nips</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for location in locations %}
+                    <tr class="nipLocationRow" id="{{location.pk}}">
+                        <td class="nameCell">{{location.name}}</td>
+                        <td class="nipCountCell">{{location.nip_set.all.count}}</td>
+                        <td class="detailsCell"><button type="button" class="btn btn-xs btn-info openLocationDetails">Details</button></td>
+                        <td class="editCell"><button type="button" class="btn btn-xs btn-warning openEditLocation">Edit</button></td>
+                        <td class="deleteCell"><button type="button" class="btn btn-xs btn-danger openDeleteLocation">Delete</button></td>
+                    </tr>
+                {% endfor %}
+                <td colspan="5" align="middle">
+                <button type="button" class="btn btn-xs addObjectButton" id="openAddLocation">
+                    <h2 class="buttonAddText">+</h2>
+                </button>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

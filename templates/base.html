@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script type="text/javascript" src="{% static 'js/formUtils.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/setConfirmationModal.js' %}"></script>
+        <link href="{% static 'css/global.css' %}" rel="stylesheet">
+        <script src="{% static 'js/messages.js' %}"></script>
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+        <link href="{% static 'css/messages.css' %}" rel="stylesheet">
+
+        {% block extra_css_files %}
+        {% endblock %}
+
+        {% block extra_js_files %}
+        {% endblock %}
+
+        {% block inpage_js %}
+        {% endblock %}
+
+    </head>
+
+    <body>
+
+        {% include 'include/messages.html' %}
+
+        {% block header_section %}
+        {% endblock %}
+
+        <div class="col-md-12 container mainContainer">
+
+            {% block page_content %}
+
+
+            {% endblock %}
+
+        </div>
+
+    </body>
+
+</html>
