@@ -3,7 +3,17 @@
     padding: 0px;
     color: #bfd8d1;
     width: 49%;
+    height: 40vh;
 }
+
+
+.fullWidthSection {
+    margin: 0px; 
+    padding: 0px;
+    color: #bfd8d1;
+    height: 40vh;
+}
+
 .sectionHeader {
     color: #d03161;
     letter-spacing: 2px;
@@ -13,10 +23,10 @@
     padding-left: 0px; 
     padding-right: 0px; 
 }
+
 .sectionHeaderText {
     margin: 0px;
 }
-
 
 .sectionLeft {
     margin-right: 10px !important;

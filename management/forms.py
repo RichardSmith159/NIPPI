@@ -21,7 +21,7 @@ class DeleteUserForm(forms.Form):
 
         except User.DoesNotExist:
 
-            messages.error(request, "The selected user '%s' could not be found in the database." % username)
+            messages.error(request, "The selected user could not be found in the database.")
         
         else:
 

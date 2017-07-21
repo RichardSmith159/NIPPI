@@ -78,6 +78,7 @@ def management_dashboard(request):
         {
             "users": User.objects.all(),
             "locations": NipLocation.objects.all(),
+            "nips": Nip.objects.all(),
             "current_user": "Richard",
             "add_location_form": add_location_form,
             "delete_location_form": delete_location_form,

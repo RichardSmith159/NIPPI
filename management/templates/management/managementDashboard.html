@@ -130,5 +130,38 @@
         </table>
     </div>
 </div>
+<div class="col-md-12 fullWidthSection">
+    <div class="col-md-12 sectionHeader">
+        <h3>NIPS</h3>
+    </div>
+    <div class="col-md-12 tableContainer" id="nipsTableContainer">
+        <table class="table managementTable">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Sirens</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nip in nips %}
+                    <tr class="nipRow" id="{{nip.pk}}">
+                        <td class="uidCell">{{nip.uid}}</td>
+                        <td class="nameCell">{{nip.name}}</td>
+                        <td class="locationCell">{{nip.location.name}}</td>
+                        <td class="sirenCountCell">{{nip.siren_set.all.count}}</td>
+                        <td class="detailsCell"><button type="button" class="btn btn-xs btn-info openNipDetails">Details</button></td>
+                        <td class="editCell"><button type="button" class="btn btn-xs btn-warning openEditNip">Edit</button></td>
+                        <td class="deleteCell"><button type="button" class="btn btn-xs btn-danger openDeleteNip">Delete</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% endblock %}

@@ -8,6 +8,7 @@ from nips.models import Nip
 class Siren(models.Model):
 
     nip = models.ForeignKey(Nip, null = True)
+    name = models.CharField(max_length = 30, default = "")
     monitor_variable = models.CharField(max_length = 30, default = "temperature")
     acceptable_bounds_upper_limit = models.FloatField(default = 0.0)
     acceptable_bounds_lower_limit = models.FloatField(default = 0.0)
