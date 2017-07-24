@@ -14,15 +14,51 @@ class Siren(models.Model):
     acceptable_bounds_lower_limit = models.FloatField(default = 0.0)
     message = models.CharField(max_length = 100, default = "Monitored variable out of bounds.")
     tolerance = models.IntegerField(default = 3)
+    circular_buffer = models.CharField(max_length = 30, default = "")
 
-    def check_data(self, data):
-        pass
     
     def alert_subscribers(self):
         
         for sub in self.subscription_set.all():
 
             pass
+
+    
+    def check_data(self, data):
+
+        num_out_of_tolerance = 0
+        
+        for point in data:
+            if point < self.acceptable_bounds_lower_limit or point > self.acceptable_bounds_upper_limit:
+                num_out_of_tolerance += 1
+        
+        if num_out_of_tolerance == self.tolerance:
+
+            self.alert_subscribers()
+
+            self.nip.status = "T"
+            self.nip.save()
+
+
+    def shift_buffer(self, new_data_point):
+
+        current_buffer = self.circular_buffer.replace("[", "").replace("]", "").split(",")
+
+        last_index = len(current_buffer) - 1
+
+        if len(current_buffer) == self.tolerance:
+
+            current_buffer.pop(last_index)
+
+            current_buffer.insert(0, new_data_point)
+        
+        else:
+
+            current_buffer.insert(0, new_data_point)
+        
+        self.circular_buffer = str(current_buffer)
+        self.save()
+
 
 
 
