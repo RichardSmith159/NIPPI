@@ -28,3 +28,8 @@ class Nip(models.Model):
     def generate_uid(self):
         self.uid = "%d_%s" % (self.pk, self.name)
         self.save()
+
+    
+    def get_record(self):
+
+        return self.record_set.all()[0]
