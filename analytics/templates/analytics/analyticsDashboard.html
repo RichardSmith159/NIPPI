@@ -57,7 +57,19 @@
                 <div class="col-md-2 nipContainer">
                     <div class="col-md-12 nipInnerContainer">
                         <div class="col-md-12" align="middle">
-                            <img src="{% static 'images/nip_icon_green.png' %}" class="nipIcon">
+                            {% if nip.status == "AA" %}
+                                <img src="{% static 'images/nip_icon_light_grey.png' %}" class="nipIcon">
+                            {% elif nip.status == "W" %}
+                                <img src="{% static 'images/nip_icon_green.png' %}" class="nipIcon">
+                            {% elif nip.status == "D" %}
+                                <img src="{% static 'images/nip_icon_light_grey.png' %}" class="nipIcon">
+                            {% elif nip.status == "E" %}
+                                <img src="{% static 'images/nip_icon_red.png' %}" class="nipIcon">
+                            {% elif nip.status == "T" %}
+                                <img src="{% static 'images/nip_icon_orange.png' %}" class="nipIcon">
+                            {% else %}
+
+                            {% endif %}
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-5 nipDetailHeader">
@@ -89,4 +101,5 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
+    
 {% endblock %}
