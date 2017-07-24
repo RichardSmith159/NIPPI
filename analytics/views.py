@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from nips.models import Nip
 
-NIP_ROW_LENGTH = 5
+NIP_ROW_LENGTH = 4
 
 def overview(request):
 
@@ -16,7 +16,10 @@ def overview(request):
     if len(result[-1]) < NIP_ROW_LENGTH:
         while len(result[-1]) < NIP_ROW_LENGTH:
             result[-1].append("EMPTY")
+    
+    result.append(["EMPTY"]*4)
 
+    print result
     return render(
         request,
         "analytics/analyticsDashboard.html",
