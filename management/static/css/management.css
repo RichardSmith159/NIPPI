@@ -1,41 +1,5 @@
-.headerContainer {
-    padding-left: 0px;
-    padding-right: 0px;
-     background-color: #2b374b; 
-    /* background-color:  #bfd8d1; */
 
-}
-
-.headerImage {
-    display: inline-block;
-    vertical-align: middle;
-}
-.headerText {
-    color: #d03161; 
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 5px;
-    letter-spacing: 5px;
-}
-
-.headerSubtext {
-    color: #bfd8d1;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#pageHeader {
-    margin-top: 15px !important;
-}
 
 body {
      background-color: #1f1f1f;
-}
-
-.mainContainer {
-    padding-top: 20px;
 }

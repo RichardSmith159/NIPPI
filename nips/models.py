@@ -25,6 +25,10 @@ class Nip(models.Model):
     uid = models.CharField(max_length = 50, unique = True, blank = True, default = "")
     status = models.CharField(max_length = 2, choices = NIP_STATUS_OPTIONS, default = "AA")
 
+    def get_verbose_status(self):
+
+        return self.get_status_display()
+
     def generate_uid(self):
         self.uid = "%d_%s" % (self.pk, self.name)
         self.save()

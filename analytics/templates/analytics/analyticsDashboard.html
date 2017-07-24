@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css_files %}
+<link href="{% static 'css/nipContainer.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js_files %}
+<script type="text/javascript" src="{% static 'js/nipDetails.js' %}"></script>
+{% endblock %}
+
+{% block header_section %}
+    <div class="col-md-12 container headerContainer">
+        <div class="col-md-4" align="left">
+            <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:64px; height:64px;">
+            <h2 class="headerText">NIPPI</h2>
+        </div>
+        <div class="col-md-4">
+            <h2 class="headerSubtext" id="pageHeader">Data &amp; Analytics: Overview</h2>
+        </div>
+        <div class="col-md-4" align="right">
+            <h4 class="headerSubtext">Welcome {{current_user}}</h4>
+            <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" style="width:64px; height:64px;">
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+
+    {% include 'include/nipModal.html' %}
+
+    {% for row in nip_array %}
+        {% for nip in row %}
+            {% if nip == "EMPTY" %}
+                <div class="col-md-2 nipContainer">
+                    <div class="col-md-12 nipIconContainer" align="middle">
+                        <img src="{% static 'images/nip_icon_dark_grey.png' %}" class="nipIcon">
+                    </div>
+                    <div class="col-md-12 nipDetailsRow">
+                        <div class="col-md-4">
+                            <h4>Name:</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{nip.name}}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12 nipDetailsRow">
+                        <div class="col-md-4">
+                            <h4>Location:</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{nip.location.name}}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-2 nipContainer">
+                    <div class="col-md-12 nipInnerContainer">
+                        <div class="col-md-12" align="middle">
+                            <img src="{% static 'images/nip_icon_green.png' %}" class="nipIcon">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5 nipDetailHeader">
+                                <h4>NAME:</h4>
+                            </div>
+                            <div class="col-md-7 nipDetail">
+                                <h4>{{nip.name}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5 nipDetailHeader">
+                                <h4>LOCATION:</h4>
+                            </div>
+                            <div class="col-md-7 nipDetail">
+                                <h4>{{nip.location.name}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5 nipDetailHeader">
+                                <h4>STATUS:</h4>
+                            </div>
+                            <div class="col-md-7 nipDetail">
+                                <h4>{{nip.get_verbose_status}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12"><hr></div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

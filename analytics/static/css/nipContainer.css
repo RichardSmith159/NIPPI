@@ -1,0 +1,29 @@
+.nipContainer {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 10px;
+}
+
+
+.nipInnerContainer {
+    background-color: #2f2f2f;
+    color: 	#bfd8d1;
+    padding: 0px;
+    margin: 0px;
+}
+
+.nipDetailHeader {
+    padding-left: 0px;
+}
+
+.nipDetail {
+    padding-right: 0px;
+}
+
+.nipDetailsButton {
+    width: 100%;
+}
+
+.nipInnerContainer:hover {
+    background-color: #4f4f4f;
+}
