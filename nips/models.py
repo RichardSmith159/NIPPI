@@ -17,7 +17,7 @@ class Nip(models.Model):
         ("W", "Working"),
         ("D", "Disabled"),
         ("E", "Error"),
-        ("T", "Outside Tolerance")
+        ("S", "Siren Active")
     )
 
     location = models.ForeignKey(NipLocation, null = True)
