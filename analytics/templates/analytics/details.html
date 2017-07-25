@@ -16,7 +16,7 @@
             <h2 class="headerText">NIPPI</h2>
         </div>
         <div class="col-md-4" align="middle">
-            <h2 class="headerSubtext" id="pageHeader">Nip: {{nip_name}}</h2>
+            <h2 class="headerSubtext" id="pageHeader">Nip: {{nip.name}}</h2>
         </div>
         <div class="col-md-4" align="right">
             <h4 class="headerSubtext">Welcome {{current_user}}</h4>
@@ -28,5 +28,11 @@
 
 
 {% block page_content %}
-
+<div class="col-md-12">
+    <div class="col-md-4 simpleContainer" id="sirenContainer">
+        {% for siren in nip.siren_set.all %}
+            
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

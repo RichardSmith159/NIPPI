@@ -78,7 +78,7 @@ def nip_details(request, nip_pk):
     
     else:
 
-        name = nip.name
+        pass
 
 
-    return render(request, "analytics/details.html", {"nip_name": name})
+    return render(request, "analytics/details.html", {"nip": nip})
