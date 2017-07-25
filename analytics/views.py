@@ -53,10 +53,7 @@ def overview(request):
     if len(result[-1]) < NIP_ROW_LENGTH:
         while len(result[-1]) < NIP_ROW_LENGTH:
             result[-1].append("EMPTY")
-    
-    result.append(["EMPTY"]*4)
-
-    print result
+            
     return render(
         request,
         "analytics/analyticsDashboard.html",
