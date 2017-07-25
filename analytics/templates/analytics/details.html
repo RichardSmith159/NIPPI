@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block extra_css_files %}
-
+<link href="{% static 'css/details.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js_files %}
@@ -28,11 +28,14 @@
 
 
 {% block page_content %}
-<div class="col-md-12">
+<div class="col-md-12 dataRow">
     <div class="col-md-4 simpleContainer" id="sirenContainer">
         {% for siren in nip.siren_set.all %}
-            
+
         {% endfor %}
+    </div>
+    <div class="col-md-8 simpleContainer" id="metricHistoryContainer">
+
     </div>
 </div>
 {% endblock %}

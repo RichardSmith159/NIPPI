@@ -1,3 +1,17 @@
 .simpleContainer {
-    /* background-color: #2f2f2f; */
+     background-color: #2f2f2f;
+     height: 35vh;
+}
+
+#sirenContainer {
+    width: 20vw;
+    margin-right: 15px;
+}
+
+.dataRow {
+     padding: 0px; 
+}
+
+#metricHistoryContainer {
+    width: 77.5vw;
 }
