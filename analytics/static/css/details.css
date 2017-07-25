@@ -15,3 +15,21 @@
 #metricHistoryContainer {
     width: 77.5vw;
 }
+
+#middleDataRow {
+    margin-top: 15px;
+}
+
+#A {
+    margin-right: 15px;
+    width: 32.24vw;
+}
+#B {
+    margin-right: 15px;
+    width: 32.24vw;
+}
+
+#C {
+
+    width: 32.24vw;
+}
