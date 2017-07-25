@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css_files %}
+
+{% endblock %}
+
+{% block extra_js_files %}
+
+{% endblock %}
+
+{% block header_section %}
+    <div class="col-md-12 container headerContainer">
+        <div class="col-md-4" align="left">
+            <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:64px; height:64px;">
+            <h2 class="headerText">NIPPI</h2>
+        </div>
+        <div class="col-md-4" align="middle">
+            <h2 class="headerSubtext" id="pageHeader">Nip: {{nip_name}}</h2>
+        </div>
+        <div class="col-md-4" align="right">
+            <h4 class="headerSubtext">Welcome {{current_user}}</h4>
+            <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" style="width:64px; height:64px;">
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block page_content %}
+
+{% endblock %}

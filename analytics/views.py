@@ -53,7 +53,7 @@ def overview(request):
     if len(result[-1]) < NIP_ROW_LENGTH:
         while len(result[-1]) < NIP_ROW_LENGTH:
             result[-1].append("EMPTY")
-            
+
     return render(
         request,
         "analytics/analyticsDashboard.html",
@@ -62,3 +62,23 @@ def overview(request):
             "nip_array": result
         }
     )
+
+
+
+def nip_details(request, nip_pk):
+
+    try:
+
+        nip = Nip.objects.get(pk = nip_pk)
+    
+    except Nip.DoesNotExist:
+
+        pass
+        # redirect to 404 page
+    
+    else:
+
+        name = nip.name
+
+
+    return render(request, "analytics/details.html", {"nip_name": name})

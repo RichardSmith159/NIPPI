@@ -7,6 +7,11 @@ from nips.models import Nip
 
 class Siren(models.Model):
 
+    SIREN_STATUS_OPTIONS = (
+        ("D", "Dormant"),
+        ("A", "Alert"),
+    )
+
     nip = models.ForeignKey(Nip, null = True)
     name = models.CharField(max_length = 30, default = "")
     monitor_variable = models.CharField(max_length = 30, default = "temperature")
@@ -15,6 +20,8 @@ class Siren(models.Model):
     message = models.CharField(max_length = 100, default = "Monitored variable out of bounds.")
     tolerance = models.IntegerField(default = 3)
     circular_buffer = models.CharField(max_length = 30, default = "")
+    status = models.CharField(max_length = 1, choices = SIREN_STATUS_OPTIONS, default = "D")
+    number_of_issues = models.IntegerField(default = 0)
 
     
     def alert_subscribers(self):
