@@ -4,7 +4,7 @@
 }
 
 #sirenContainer {
-    width: 20vw;
+    width: 20.1vw;
     margin-right: 15px;
 }
 
@@ -22,14 +22,20 @@
 
 #A {
     margin-right: 15px;
-    width: 32.24vw;
+    width: 32.31vw;
 }
 #B {
     margin-right: 15px;
-    width: 32.24vw;
+    width: 32.31vw;
 }
 
 #C {
 
     width: 32.24vw;
+}
+
+#liveFeedContainer {
+    margin-top: 15px;
+    height: 18.5vh;
+    background-color: #2f2f2f;
 }
