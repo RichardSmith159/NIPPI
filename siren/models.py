@@ -23,13 +23,21 @@ class Siren(models.Model):
     status = models.CharField(max_length = 1, choices = SIREN_STATUS_OPTIONS, default = "D")
     number_of_issues = models.IntegerField(default = 0)
 
+
     
-    def alert_subscribers(self):
+    def alert_subscribers(self, message):
         
         for sub in self.subscription_set.all():
 
             pass
 
+
+
+    def switch_off(self):
+
+        self.status = "D"
+        self.alert_subscribers(self.name + ": Alert Deactivated.")
+        self.save()
     
     def check_data(self, data):
 
@@ -40,8 +48,10 @@ class Siren(models.Model):
                 num_out_of_tolerance += 1
         
         if num_out_of_tolerance == self.tolerance:
-
-            self.alert_subscribers()
+            
+            self.status = "A"
+            self.alert_subscribers(self.message)
+            self.save()
 
             self.nip.status = "T"
             self.nip.save()
