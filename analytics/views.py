@@ -1,11 +1,48 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from nips.models import Nip
-
+from . import forms
+import form_errors
 NIP_ROW_LENGTH = 4
+
+def login_user(request):
+
+    if request.method == "POST":
+
+        login_form = forms.LoginForm(request.POST)
+
+        if login_form.is_valid():
+
+            success = login_form.process(request)
+
+            if success:
+
+                return redirect("analytics:overview")
+            
+            else:
+
+                messages.error(request, "Username or password was incorrect.")
+        
+        else:
+
+            form_errors.convert_form_errors_to_messages(login_form, request)
+    
+    else:
+
+        login_form = forms.LoginForm()
+
+    return render(
+        request,
+        "analytics/login.html",
+        {
+            "login_form": login_form
+        }
+    )
+
+
 
 def overview(request):
 

@@ -1,0 +1,30 @@
+
+.loginContainer {
+    width: 400px;
+    height: 200px;
+    background-color: #efefef;
+    margin: 0 auto;
+    bottom: 50%;
+}
+
+.inputRow {
+    margin-top: 10px;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+#submitButton {
+    width: 100%;
+}
+
+.headerRow {
+    margin-top: 5px;
+}
+
+.inputTitleContainer {
+    padding-left: 0px;
+}
+
+.submitRow {
+    margin-top: 10px;
+}

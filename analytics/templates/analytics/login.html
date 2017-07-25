@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css_files %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js_files %}
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+{% endblock %}
+
+{% block header_section %}
+
+{% endblock %}
+
+
+
+{% block page_content %}
+
+
+<form id="login_form" method="post" name="login_form">
+    {% csrf_token %}
+    {% for field in login_form %}
+        {{field.as_hidden}}
+    {% endfor %}
+</form>
+
+<div class="loginContainer">
+    <div class="col-md-12 headerRow" align="middle">
+        <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:32px; height:32px;">
+        <h1 class="headerText">NIPPI</h1>
+    </div>
+    <div class="col-md-12 inputRow" id="usernameRow">
+        <div class="col-md-4 inputTitleContainer">
+            <h4>Username:</h4>
+        </div>
+        <div class="col-md-8 inputContainer">
+            <input type="text" class="form-control loginInput" id="usernameInput">
+        </div>
+    </div>
+    <div class="col-md-12 inputRow" id="passwordRow">
+        <div class="col-md-4 inputTitleContainer">
+            <h4>Password:</h4>
+        </div>
+        <div class="col-md-8 inputContainer">
+            <input type="text" class="form-control loginInput" id="passwordInput">
+        </div>
+    </div>
+    <div class="col-md-12 submitRow">
+        <input type="submit" class="btn btn-info" id="submitButton" form="login_form" value="Login">
+    </div>
+</div>
+
+
+{% endblock %}
