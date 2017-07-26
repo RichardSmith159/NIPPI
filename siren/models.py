@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from nips.models import Nip
+from datetime import datetime
 
 
 class Siren(models.Model):
 
     SIREN_STATUS_OPTIONS = (
         ("D", "Dormant"),
+        ("P", "Paused"),
         ("A", "Alert"),
     )
 
@@ -24,8 +26,7 @@ class Siren(models.Model):
     circular_buffer = models.CharField(max_length = 30, default = "")
     
     message = models.CharField(max_length = 100, default = "Monitored variable out of bounds.")
-    
-    past_number_of_alerts = models.IntegerField(default = 0)    
+
     email_notification = models.BooleanField(default = True)
     text_notification = models.BooleanField(default = False)
 
@@ -78,3 +79,17 @@ class Siren(models.Model):
         
         self.circular_buffer = str(current_buffer)
         self.save()
+
+
+class Alert(models.Model):
+
+    ALERT_STATUS_OPTIONS = (
+        ("A", "Active"),
+        ("S", "Seen"),
+        ("H", "Handled")
+    )
+
+    siren = models.ForeignKey(Siren, null = True)
+    alert_datetime = models.DateTimeField(default = datetime.now)
+    handled_datetime = models.DateTimeField(blank = True)
+    comments = models.CharField(max_length = 200, default = "")

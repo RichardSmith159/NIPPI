@@ -39,7 +39,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Subscribed</th>
+                                <th>Status</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -48,8 +48,15 @@
                         <tbody>
 
                             {% for siren in nip.siren_set.all %}
-                                <tr class="sirenRow" id="{{siren.pk}}">
+                                {% if siren.status == "A" %}
+                                    <tr class="sirenRow alertedSiren" id="{{siren.pk}}">
+                                {% elif siren.status == "D" %}
+                                    <tr class="sirenRow dormantSiren" id="{{siren.pk}}">
+                                {% elif siren.status == "P" %}
+                                    <tr class="sirenRow pausedSiren" id="{{siren.pk}}">
+                                {% endif %}
                                     <td class="sirenNameCell">{{siren.name}}</td>
+                                    <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
                                     <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
                                     <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>

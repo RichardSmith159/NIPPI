@@ -39,3 +39,8 @@
 .tableContainer {
     color: #bfd8d1;
 }
+
+.alertedSiren {
+    background-color: #ee8080;
+    color: #2b374b;
+}
