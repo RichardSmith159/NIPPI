@@ -30,9 +30,20 @@
 {% block page_content %}
     <div class="col-md-12 dataRow" id="topRow">
         <div class="col-md-4 outerContainer leftContainer">
+            <div class="col-md-12 simpleContainer">
+
+            </div>
+        </div>
+        <div class="col-md-8 outerContainer rightContainer">
+            <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 dataRow" id="middleRow">
+        <div class="col-md-4 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="sirenContainer">
                 <div class="col-md-12 header">
-                    <h3>My Sirens</h3><hr>
+                    <h3>Sirens</h3><hr>
                 </div>
                 <div class="col-md-12 tableContainer" id="sirenTableContainer">
                     <table class="table">
@@ -46,7 +57,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             {% for siren in nip.siren_set.all %}
                                 {% if siren.status == "A" %}
                                     <tr class="sirenRow alertedSiren" id="{{siren.pk}}">
@@ -58,23 +68,19 @@
                                     <td class="sirenNameCell">{{siren.name}}</td>
                                     <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
                                     <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
+                                {% if siren.creator == request.user %}
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
                                     <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>
+                                {% else %}
+                                    <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit disabled">Edit</button></td>
+                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit disabled">X</button></td>
+                                {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8 outerContainer rightContainer">
-            <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 dataRow" id="middleRow">
-        <div class="col-md-4 outerContainer leftContainer">
-            <div class="col-md-12 simpleContainer"></div>
         </div>
         <div class="col-md-4 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer"></div>
