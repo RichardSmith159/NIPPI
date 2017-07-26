@@ -3,6 +3,7 @@
 
 {% block extra_css_files %}
 <link href="{% static 'css/details.css' %}" rel="stylesheet">
+<link href="{% static 'css/alertTable.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js_files %}
@@ -29,7 +30,7 @@
 
 {% block page_content %}
     <div class="col-md-12 dataRow" id="topRow">
-        <div class="col-md-4 outerContainer leftContainer">
+        <div class="col-md-6 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="alertContainer">
                 <div class="col-md-12 header">
                     <h3 class="containerHeaderText">Alerts</h3>
@@ -39,15 +40,41 @@
                     <table class="table" id="alertTable">
                         <thead>
                             <tr>
-                                <th>Siren</th>
-                                <th>Message</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th class="alertSirenNameCell">Siren</th>
+                                <th class="alertMessageCell">Message</th>
+                                <th class="alertStatusCell">Status</th>
+                                <th class="alertSeenByCell">Seen By</th>
+                                <th class="alertRespondCell">Respond</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for alert in alerts %}
                                 <tr class="alertRow" id="{{alert.pk}}">
+                                    <td class="alertSirenNameCell">{{alert.siren.name}}</td>
+                                    <td class="alertMessageCell">{{alert.get_verbose_status}}</td>
+                                    <td class="alertStatusCell">
+                                        <ul class="seenByList">
+                                            {% for user in alert.seen_by %}
+                                                {% if user == alert.handled_by %}
+                                                    <li class="seenByListItem handled">{{user.username}}</li>
+                                                {% else %}
+                                                    <li class="seenByListItem">{{user.username}}</li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td class="">
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Respond
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" id="alertActionDropdownMenu">
+                                                <li class="alertActionOption">Seen</li>
+                                                <li class="alertActionOption">Handled</li>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -55,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8 outerContainer rightContainer">
+        <div class="col-md-6 outerContainer rightContainer">
             <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
             </div>
         </div>
@@ -80,11 +107,10 @@
                         </thead>
                         <tbody>
                             {% for siren in nip.siren_set.all %}
-                                
-                                    <tr class="sirenRow {{siren.status}}_Siren" id="{{siren.pk}}">
-                                    <td class="sirenNameCell">{{siren.name}}</td>
-                                    <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
-                                    <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
+                                <tr class="sirenRow {{siren.status}}_Siren" id="{{siren.pk}}">
+                                <td class="sirenNameCell">{{siren.name}}</td>
+                                <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
+                                <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
                                 {% if siren.creator == request.user %}
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
                                     <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>
