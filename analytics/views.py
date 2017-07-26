@@ -6,6 +6,8 @@ from django.contrib import messages
 from nips.models import Nip
 from . import forms
 import form_errors
+
+
 NIP_ROW_LENGTH = 4
 
 def login_user(request):

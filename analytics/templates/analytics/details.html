@@ -28,20 +28,56 @@
 
 
 {% block page_content %}
-<div class="col-md-12 dataRow" id="topDataRow">
-    <div class="col-md-4 simpleContainer" id="sirenContainer">
-        {% for siren in nip.siren_set.all %}
-
-        {% endfor %}
+    <div class="col-md-12 dataRow" id="topRow">
+        <div class="col-md-4 outerContainer leftContainer">
+            <div class="col-md-12 simpleContainer" id="sirenContainer">
+                <div class="col-md-12 header">
+                    <h3>My Sirens</h3><hr>
+                </div>
+                <div class="col-md-12 tableContainer" id="sirenTableContainer">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Subscribed</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for siren in nip.siren_set.all %}
+                                <tr class="sirenRow" id="{{siren.pk}}">
+                                    <td class="sirenNameCell">{{siren.name}}</td>
+                                    
+                                    <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
+                                    <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
+                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 outerContainer rightContainer">
+            <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
+            </div>
+        </div>
     </div>
-    <div class="col-md-8 simpleContainer" id="metricHistoryContainer">
-
+    <div class="col-md-12 dataRow" id="middleRow">
+        <div class="col-md-4 outerContainer leftContainer">
+            <div class="col-md-12 simpleContainer"></div>
+        </div>
+        <div class="col-md-4 outerContainer leftContainer">
+            <div class="col-md-12 simpleContainer"></div>
+        </div>
+        <div class="col-md-4 outerContainer rightContainer">
+            <div class="col-md-12 simpleContainer"></div>
+        </div>
     </div>
-</div>
-<div class="col-md-12 dataRow" id="middleDataRow">
-    <div class="col-md-4 simpleContainer" id="A"></div>
-    <div class="col-md-4 simpleContainer" id="B"></div>
-    <div class="col-md-4 simpleContainer" id="C"></div>
-</div>
-<div class="col-md-12 dataRow" id="liveFeedContainer"></div>
+    <div class="col-md-12 dataRow" id="bottomRow">
+        <div class="col-md-12 simpleContainer" id="liveFeedContainer">
+        </div>
+    </div>
 {% endblock %}

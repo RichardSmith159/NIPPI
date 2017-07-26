@@ -1,41 +1,41 @@
 .simpleContainer {
      background-color: #2f2f2f;
      height: 35vh;
+     padding: 0px;
+     margin: 0px;
 }
 
-#sirenContainer {
-    width: 20.1vw;
-    margin-right: 15px;
+.mainContainer {
+     padding-left: 0px; 
+     padding-right: 0px;
 }
 
-.dataRow {
-     padding: 0px; 
+.outerContainer {
+    padding-left: 0px
 }
 
-#metricHistoryContainer {
-    width: 77.5vw;
+.rightContainer {
+    padding-right: 0px;
 }
 
-#middleDataRow {
+#middleRow {
     margin-top: 15px;
 }
 
-#A {
-    margin-right: 15px;
-    width: 32.31vw;
-}
-#B {
-    margin-right: 15px;
-    width: 32.31vw;
-}
-
-#C {
-
-    width: 32.24vw;
+#bottomRow {
+    margin-top: 15px;
 }
 
 #liveFeedContainer {
-    margin-top: 15px;
-    height: 18.5vh;
+    height: 18vh;
     background-color: #2f2f2f;
+    margin-bottom: 15px;
+}
+
+.header {
+    color: #bfd8d1;
+}
+
+.tableContainer {
+    color: #bfd8d1;
 }
