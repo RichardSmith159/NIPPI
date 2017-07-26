@@ -49,7 +49,7 @@
                         </thead>
                         <tbody>
                             {% for alert in alerts %}
-                                <tr class="alertRow" id="{{alert.pk}}">
+                                <tr class="{{alert.status}}_alertRow" id="{{alert.pk}}">
                                     <td class="alertSirenNameCell">{{alert.siren.name}}</td>
                                     <td class="alertMessageCell">{{alert.get_verbose_status}}</td>
                                     <td class="alertStatusCell">
@@ -63,15 +63,15 @@
                                             {% endfor %}
                                         </ul>
                                     </td>
-                                    <td class="">
+                                    <td class="alertRespondCell">
                                         <div class="dropdown">
                                             <button class="btn btn-xs btn-info dropdown-toggle" type="button" data-toggle="dropdown">
                                                 Respond
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" id="alertActionDropdownMenu">
-                                                <li class="alertActionOption">Seen</li>
-                                                <li class="alertActionOption">Handled</li>
+                                                <li class="dropdownOption alertActionOption">Seen</li>
+                                                <li class="dropdownOption alertActionOption">Handled</li>
                                             </ul>
                                         </div>
                                     </td>
@@ -84,6 +84,11 @@
         </div>
         <div class="col-md-6 outerContainer rightContainer">
             <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
+                <div class="col-md-12 header">
+                    <h3 class="containerHeaderText">Historic Data</h3>
+                    <hr>
+                </div>
+                <div class="graphContainer" id="historicGraphContainer"></div>
             </div>
         </div>
     </div>
