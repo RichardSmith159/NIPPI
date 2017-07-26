@@ -16,7 +16,8 @@ class Siren(models.Model):
 
     nip = models.ForeignKey(Nip, null = True)
     name = models.CharField(max_length = 30, default = "")
-    registered_users = models.ManyToManyField(User, null = True)
+    registered_users = models.ManyToManyField(User)
+    creator = models.OneToOneField(User, null = True, related_name = "creator")
     status = models.CharField(max_length = 1, choices = SIREN_STATUS_OPTIONS, default = "D")
     monitor_variable = models.CharField(max_length = 30, default = "temperature")
     
