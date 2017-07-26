@@ -16,7 +16,7 @@ class Siren(models.Model):
 
     nip = models.ForeignKey(Nip, null = True)
     name = models.CharField(max_length = 30, default = "")
-    user = models.ManyToManyField(User, null = True)
+    registered_users = models.ManyToManyField(User, null = True)
     status = models.CharField(max_length = 1, choices = SIREN_STATUS_OPTIONS, default = "D")
     monitor_variable = models.CharField(max_length = 30, default = "temperature")
     
@@ -30,7 +30,7 @@ class Siren(models.Model):
     email_notification = models.BooleanField(default = True)
     text_notification = models.BooleanField(default = False)
 
-    def alert_user(self):
+    def alert_users(self):
         pass
 
     def get_verbose_status(self):
