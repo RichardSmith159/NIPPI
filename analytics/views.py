@@ -81,5 +81,20 @@ def nip_details(request, nip_pk):
     else:
 
         pass
+        
+        alerts = []
+        for siren in nip.siren_set.all():
 
-    return render(request, "analytics/details.html", {"nip": nip})
+            for alert in siren.alert_set.all():
+                alerts.append(alert)
+
+        alerts.sort(key = lambda x: x.status, reverse = True)
+
+    return render(
+        request,
+        "analytics/details.html",
+        {
+            "nip": nip,
+            "alerts": alerts
+        }
+    )

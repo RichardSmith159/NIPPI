@@ -19,7 +19,7 @@
             <h2 class="headerSubtext" id="pageHeader">Nip: {{nip.name}}</h2>
         </div>
         <div class="col-md-4" align="right">
-            <h4 class="headerSubtext">Welcome {{current_user}}</h4>
+            <h4 class="headerSubtext">Welcome {{request.user.username}}</h4>
             <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" style="width:64px; height:64px;">
         </div>
     </div>
@@ -31,7 +31,28 @@
     <div class="col-md-12 dataRow" id="topRow">
         <div class="col-md-4 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="alertContainer">
-                
+                <div class="col-md-12 header">
+                    <h3 class="containerHeaderText">Alerts</h3>
+                    <hr>
+                </div>
+                <div class="col-md-12 tableContainer" id="alertTableContainer">
+                    <table class="table" id="alertTable">
+                        <thead>
+                            <tr>
+                                <th>Siren</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for alert in alerts %}
+                                <tr class="alertRow" id="{{alert.pk}}">
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-8 outerContainer rightContainer">
@@ -43,7 +64,7 @@
         <div class="col-md-4 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="sirenContainer">
                 <div class="col-md-12 header">
-                    <h3>Sirens</h3>
+                    <h3 class="containerHeaderText">Sirens</h3>
                     <hr>
                 </div>
                 <div class="col-md-12 tableContainer" id="sirenTableContainer">
@@ -59,13 +80,8 @@
                         </thead>
                         <tbody>
                             {% for siren in nip.siren_set.all %}
-                                {% if siren.status == "A" %}
-                                    <tr class="sirenRow alertedSiren" id="{{siren.pk}}">
-                                {% elif siren.status == "D" %}
-                                    <tr class="sirenRow dormantSiren" id="{{siren.pk}}">
-                                {% elif siren.status == "P" %}
-                                    <tr class="sirenRow pausedSiren" id="{{siren.pk}}">
-                                {% endif %}
+                                
+                                    <tr class="sirenRow {{siren.status}}_Siren" id="{{siren.pk}}">
                                     <td class="sirenNameCell">{{siren.name}}</td>
                                     <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
                                     <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>

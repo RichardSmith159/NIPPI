@@ -40,7 +40,11 @@
     color: #bfd8d1;
 }
 
-.alertedSiren {
+.A_Siren {
     background-color: #ee8080;
     color: #2b374b;
+}
+
+.containerHeaderText {
+    letter-spacing: 2px;
 }
