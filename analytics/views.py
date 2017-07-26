@@ -82,5 +82,10 @@ def nip_details(request, nip_pk):
 
         pass
 
+    siren_data = {}
+    for siren in nip.siren_set.all():
+         pass
 
-    return render(request, "analytics/details.html", {"nip": nip})
+
+
+    return render(request, "analytics/details.html", {"nip": nip, "somedata": {"a": 1, "b": 2, "c": 3}})

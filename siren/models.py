@@ -83,6 +83,6 @@ class Siren(models.Model):
 class Subscription(models.Model):
 
     siren = models.ForeignKey(Siren, null = True)
-    user = models.ForeignKey(User, null = True)
+    user = models.OneToOneField(User, null = True)
     email_notification = models.BooleanField(default = True)
     text_notification = models.BooleanField(default = False)

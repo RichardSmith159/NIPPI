@@ -49,7 +49,6 @@
                             {% for siren in nip.siren_set.all %}
                                 <tr class="sirenRow" id="{{siren.pk}}">
                                     <td class="sirenNameCell">{{siren.name}}</td>
-                                    
                                     <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
                                     <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>
