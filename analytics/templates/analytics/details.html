@@ -46,6 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             {% for siren in nip.siren_set.all %}
                                 <tr class="sirenRow" id="{{siren.pk}}">
                                     <td class="sirenNameCell">{{siren.name}}</td>

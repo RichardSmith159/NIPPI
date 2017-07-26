@@ -23,7 +23,9 @@ class Siren(models.Model):
     status = models.CharField(max_length = 1, choices = SIREN_STATUS_OPTIONS, default = "D")
     number_of_issues = models.IntegerField(default = 0)
 
+    def get_verbose_status(self):
 
+        return self.get_status_display()
     
     def alert_subscribers(self, message):
         
@@ -82,7 +84,7 @@ class Siren(models.Model):
 
 class Subscription(models.Model):
 
-    siren = models.ForeignKey(Siren, null = True)
+    siren = models.OneToOneField(Siren, null = True)
     user = models.OneToOneField(User, null = True)
     email_notification = models.BooleanField(default = True)
     text_notification = models.BooleanField(default = False)

@@ -82,10 +82,16 @@ def nip_details(request, nip_pk):
 
         pass
 
-    siren_data = {}
+    siren_data = []
     for siren in nip.siren_set.all():
-         pass
+        siren_data = {
+            "name": siren.name,
+            "pk": siren.pk,
+            "status": siren.get_verbose_status()
+        }
+        for sub in siren.subscription_set.all():
+            if sub.user == request.user:
+                siren_data["sub"] = "True"
 
 
-
-    return render(request, "analytics/details.html", {"nip": nip, "somedata": {"a": 1, "b": 2, "c": 3}})
+    return render(request, "analytics/details.html", {"nip": nip, "siren_data": siren_data})
