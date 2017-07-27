@@ -15,3 +15,8 @@
 .alertRespondCell {
     width: 10%;
 }
+
+.A_alertRow {
+    background-color: #ee8080;
+    color: #2b374b;
+}

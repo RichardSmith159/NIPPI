@@ -3,11 +3,12 @@
 
 {% block extra_css_files %}
 <link href="{% static 'css/details.css' %}" rel="stylesheet">
+<link href="{% static 'css/modalOverrides.css' %}" rel="stylesheet">
 <link href="{% static 'css/alertTable.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js_files %}
-
+    <script type="text/javascript" src="{% static 'js/alerts.js' %}"></script>
 {% endblock %}
 
 {% block header_section %}
@@ -29,6 +30,16 @@
 
 
 {% block page_content %}
+
+    {% include 'include/confirmSeenModal.html' %}
+
+    <form id="respond_to_alert_form" method="post" name="respond_to_alert_form">
+        {% csrf_token %}
+        {% for field in respond_to_alert_form %}
+            {{field.as_hidden}}
+        {% endfor %}
+    </form>
+
     <div class="col-md-12 dataRow" id="topRow">
         <div class="col-md-6 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="alertContainer">
@@ -41,8 +52,8 @@
                         <thead>
                             <tr>
                                 <th class="alertSirenNameCell">Siren</th>
-                                <th class="alertMessageCell">Message</th>
                                 <th class="alertStatusCell">Status</th>
+                                <th class="alertMessageCell">Message</th>
                                 <th class="alertSeenByCell">Seen By</th>
                                 <th class="alertRespondCell">Respond</th>
                             </tr>
@@ -51,10 +62,11 @@
                             {% for alert in alerts %}
                                 <tr class="{{alert.status}}_alertRow" id="{{alert.pk}}">
                                     <td class="alertSirenNameCell">{{alert.siren.name}}</td>
-                                    <td class="alertMessageCell">{{alert.get_verbose_status}}</td>
-                                    <td class="alertStatusCell">
+                                    <td class="alertStatucCell">{{alert.get_verbose_status}}</td>
+                                    <td class="alertMessageCell">{{alert.siren.message}}</td>
+                                    <td class="alertSeenByCell">
                                         <ul class="seenByList">
-                                            {% for user in alert.seen_by %}
+                                            {% for user in alert.seen_by.all %}
                                                 {% if user == alert.handled_by %}
                                                     <li class="seenByListItem handled">{{user.username}}</li>
                                                 {% else %}

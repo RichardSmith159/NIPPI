@@ -48,3 +48,7 @@
 .containerHeaderText {
     letter-spacing: 2px;
 }
+
+.alertActionOption {
+    color: #222222;
+}

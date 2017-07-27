@@ -6,6 +6,7 @@ from django.contrib import messages
 from nips.models import Nip
 from . import forms
 import form_errors
+from siren.models import Siren, Alert
 
 
 NIP_ROW_LENGTH = 4
@@ -69,6 +70,21 @@ def overview(request):
 
 def nip_details(request, nip_pk):
 
+    respond_to_alert_form = forms.RespondToAlertForm()
+
+    if request.method == "POST":
+
+        respond_to_alert_form = forms.RespondToAlertForm(request.POST)
+
+        if respond_to_alert_form.is_valid():
+
+            respond_to_alert_form.process(request)
+        
+        else:
+
+            form_errors.convert_form_errors_to_messages(respond_to_alert_form, request)
+
+
     try:
 
         nip = Nip.objects.get(pk = nip_pk)
@@ -82,19 +98,15 @@ def nip_details(request, nip_pk):
 
         pass
         
-        alerts = []
-        for siren in nip.siren_set.all():
+        alerts = Alert.objects.filter(siren__nip = nip).order_by("status")
 
-            for alert in siren.alert_set.all():
-                alerts.append(alert)
-
-        alerts.sort(key = lambda x: x.status, reverse = True)
 
     return render(
         request,
         "analytics/details.html",
         {
             "nip": nip,
-            "alerts": alerts
+            "alerts": alerts,
+            "respond_to_alert_form": respond_to_alert_form
         }
     )
