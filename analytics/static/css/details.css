@@ -52,3 +52,10 @@
 .alertActionOption {
     color: #222222;
 }
+
+.tableContainer {
+    height: 290px;
+    overflow-y: auto;
+    max-height: initial;
+    margin-bottom: 10px;
+}

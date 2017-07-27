@@ -30,7 +30,7 @@
 
 
 {% block page_content %}
-
+    {% include 'include/confirmHandledModal.html' %}
     {% include 'include/confirmSeenModal.html' %}
 
     <form id="respond_to_alert_form" method="post" name="respond_to_alert_form">
@@ -62,13 +62,13 @@
                             {% for alert in alerts %}
                                 <tr class="{{alert.status}}_alertRow" id="{{alert.pk}}">
                                     <td class="alertSirenNameCell">{{alert.siren.name}}</td>
-                                    <td class="alertStatucCell">{{alert.get_verbose_status}}</td>
+                                    <td class="alertStatucCell"><b>{{alert.get_verbose_status}}</b></td>
                                     <td class="alertMessageCell">{{alert.siren.message}}</td>
                                     <td class="alertSeenByCell" align="left">
                                         <ul class="seenByList">
                                             {% for user in alert.seen_by.all %}
                                                 {% if user == alert.handled_by %}
-                                                    <li class="seenByListItem handled">{{user.username}}</li>
+                                                    <li class="seenByListItem"><b>{{user.username}}</b></li>
                                                 {% else %}
                                                     <li class="seenByListItem">{{user.username}}</li>
                                                 {% endif %}
@@ -77,6 +77,12 @@
                                     </td>
                                     <td class="alertRespondCell">
                                         <div class="dropdown">
+                                            {% if alert.status == "H" %}
+                                                <button class="btn btn-xs btn-info dropdown-toggle" type="button" data-toggle="dropdown" disabled>
+                                                    Respond
+                                                    <span class="caret"></span>
+                                                </button>
+                                            {% else %}
                                             <button class="btn btn-xs btn-info dropdown-toggle" type="button" data-toggle="dropdown">
                                                 Respond
                                                 <span class="caret"></span>
@@ -85,6 +91,7 @@
                                                 <li class="dropdownOption alertActionOption">Seen</li>
                                                 <li class="dropdownOption alertActionOption">Handled</li>
                                             </ul>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>

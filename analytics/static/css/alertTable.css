@@ -20,3 +20,15 @@
     background-color: #ee8080;
     color: #2b374b;
 }
+
+.S_alertRow {
+    /* background-color: #f0ad4e; */
+    background-color: #f2ba6a;
+    color: #2b374b;
+}
+
+.H_alertRow {
+    /* background-color: #5cb85c; */
+    background-color: #6fb76f;
+    color: #2b374b;
+}
