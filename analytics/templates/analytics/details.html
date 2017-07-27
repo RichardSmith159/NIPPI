@@ -64,7 +64,7 @@
                                     <td class="alertSirenNameCell">{{alert.siren.name}}</td>
                                     <td class="alertStatucCell">{{alert.get_verbose_status}}</td>
                                     <td class="alertMessageCell">{{alert.siren.message}}</td>
-                                    <td class="alertSeenByCell">
+                                    <td class="alertSeenByCell" align="left">
                                         <ul class="seenByList">
                                             {% for user in alert.seen_by.all %}
                                                 {% if user == alert.handled_by %}

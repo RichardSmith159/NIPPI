@@ -61,7 +61,7 @@ def overview(request):
         request,
         "analytics/analyticsDashboard.html",
         {
-            "current_user": "Richard",
+            "current_user": request.user.username,
             "nip_array": result
         }
     )

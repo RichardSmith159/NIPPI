@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from siren.models import Alert
 
@@ -29,7 +29,6 @@ class RespondToAlertForm(forms.Form):
             if cleaned_seen:
 
                 alert.status = "S"
-                print request.user, request.user.username
                 alert.seen_by.add(request.user.id)
                 alert.save()
 
@@ -61,4 +60,14 @@ class LoginForm(forms.Form):
         cleaned_username = self.cleaned_data["username"]
         cleaned_password = self.cleaned_data["password"]
 
-        return authenticate(username = cleaned_username, password = cleaned_password)
+        user = authenticate(username = cleaned_username, password = cleaned_password)
+        
+        if user:
+
+            login(request, user)
+
+            return True
+
+        else:
+
+            return False
