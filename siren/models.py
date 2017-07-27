@@ -93,7 +93,7 @@ class Alert(models.Model):
     siren = models.ForeignKey(Siren, null = True)
     status = models.CharField(max_length = 1, choices = ALERT_STATUS_OPTIONS, default = "A")
     alert_datetime = models.DateTimeField(default = datetime.now)
-    handled_datetime = models.DateTimeField(blank = True)
+    handled_datetime = models.DateTimeField(null = True, blank = True)
     comments = models.CharField(max_length = 200, default = "")
     seen_by = models.ManyToManyField(User)
     handled_by = models.ForeignKey(User, null = True, related_name = "handled_by")
