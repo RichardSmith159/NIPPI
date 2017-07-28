@@ -158,14 +158,83 @@
                     <h3 class="containerHeaderText">Location</h3>
                     <hr>
                 </div>
+                <div class="col-md-12">
+                    <div class="col-md-6" align="left">
+                        <h4 class="containerText locationName">Location Name:</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="containerText locationName">{{nip.location.name}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6" align="left">
+                        <h4 class="containerText">Description:</h4>
+                    </div>
+                    <div class="col-md-6" align="left">
+                        <p class="containerText">{{nip.location.description}}</p>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h4 class="containerText">Other Nips:</h4>
+                    </div>
+                    <div class="col-md-6" id="locationNipListContainer">
+                        <ul id="locationNipsList">
+                            {% for n in nip.location.nip_set.all %}
+                                <li class="locationNipListItem locationContainerText">
+                                    {{n.name}}
+                                    <button type="button" class="btn btn-xs btn-info goToRelatedNip">Go To</button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-4 outerContainer rightContainer">
-            <div class="col-md-12 simpleContainer"></div>
+            <div class="col-md-12 simpleContainer" id="nipDetailscontainer">
+                <div class="col-md-12 header">
+                    <h3 class="containerHeaderText">Nip Details</h3>
+                    <hr>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h4 class="containerText">Name:</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="containerText">{{nip.name}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h4 class="containerText">Status:</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="containerText">{{nip.get_verbose_status}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h4 class="containerText">UID:</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="containerText">{{nip.uid}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-12" id="nipDetailsDivider"><hr></div>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-xs btn-info" id="openDownloadModal">Download Records</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-12 dataRow" id="bottomRow">
         <div class="col-md-12 simpleContainer" id="liveFeedContainer">
+            <div class="col-md-12 header">
+                <h3>Live Feed</h3>
+                <hr>
+            </div>
         </div>
     </div>
 {% endblock %}

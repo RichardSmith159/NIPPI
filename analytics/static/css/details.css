@@ -65,3 +65,28 @@
     padding-bottom: 60px;
     padding-right: 20px;
 }
+
+#locationNipListContainer {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.locationNipListItem {
+    margin-bottom: 5px;
+}
+
+.goToRelatedNip {
+    margin-left: 10px;
+}
+
+.containerText {
+    color: #bfd8d1;
+}
+
+#nipDetailsDivider {
+    margin-top: 12px !important;
+}
+
+#openDownloadModal {
+    width: 100%;
+}
