@@ -1,0 +1,28 @@
+
+<div class="profileDiv" hidden>
+    <div class="col-md-12 profileRow">
+        <h3 class="profileText">{{request.user.username}}</h3>
+        <hr>
+    </div>
+    <div class="col-md-12 profileRow">
+        <h4>Name:</h4>
+    </div>
+    <div class="col-md-12 profileRow">
+        <input type="text" class="form-control loginInput" id="contactNumber" placeholder="{{request.user.userdetails.name}}" disabled>
+    </div>
+    <div class="col-md-12 profileRow">
+        <h4>Contact Number:</h4>
+    </div>
+    <div class="col-md-12 profileRow inputRow">
+        <input type="text" class="form-control loginInput" id="contactNumber" placeholder="{{request.user.userdetails.contact_number}}" disabled>
+    </div>
+    <div class="col-md-12 profileRow">
+        <h4>Contact Email:</h4>
+    </div>
+    <div class="col-md-12 profileRow inputRow">
+        <input type="text" class="form-control loginInput" id="contactNumber" placeholder="{{request.user.email}}" disabled>
+    </div>
+    <div class="col-md-12 profileRow profileFooter" align="middle">
+        <button type="button" class="btn btn-warning logoutButton">LOGOUT</button>
+    </div>
+</div>

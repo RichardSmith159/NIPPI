@@ -1,0 +1,22 @@
+.profileDiv {
+    width: 300px;
+    height: 40vh;
+    background-color: #bfd8d1;
+    position: absolute;
+    z-index: 100;
+    right: 0px;
+    top: 65px;
+}
+
+.profileFooter {
+    position: absolute;
+    bottom: 15px;
+}
+
+.logoutButton {
+    width: 100%;
+}
+
+.profileDivider {
+    
+}

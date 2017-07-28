@@ -15,23 +15,10 @@
     <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
 {% endblock %}
 
-{% block header_section %}
-    <div class="col-md-12 container headerContainer">
-        <div class="col-md-4" align="left">
-            <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:64px; height:64px;">
-            <h2 class="headerText">NIPPI</h2>
-        </div>
-        <div class="col-md-4" align="middle">
-            <h2 class="headerSubtext" id="pageHeader">Nip: {{nip.name}}</h2>
-        </div>
-        <div class="col-md-4" align="right">
-            <h4 class="headerSubtext">Welcome {{request.user.username}}</h4>
-            <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" style="width:64px; height:64px;">
-        </div>
-    </div>
+
+{% block page_header %}
+    <h2 class="headerSubtext" id="pageHeader">Nip: {{nip.name}}</h2>            
 {% endblock %}
-
-
 
 {% block page_content %}
     {% include 'include/confirmHandledModal.html' %}
@@ -183,7 +170,7 @@
                     <div class="col-md-6" id="locationNipListContainer">
                         <ul id="locationNipsList">
                             {% for n in nip.location.nip_set.all %}
-                                <li class="locationNipListItem locationContainerText">
+                                <li class="locationNipListItem containerText">
                                     {{n.name}}
                                     <button type="button" class="btn btn-xs btn-info goToRelatedNip">Go To</button>
                                 </li>

@@ -15,10 +15,12 @@
         <script type="text/javascript" src="{% static 'js/setConfirmationModal.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/dropdownSelection.js' %}"></script>
         <script src="{% static 'js/messages.js' %}"></script>
+        <script src="{% static 'js/profile.js' %}"></script>
         <link href="{% static 'css/global.css' %}" rel="stylesheet">
         <link href="{% static 'css/base.css' %}" rel="stylesheet">
         <link href="{% static 'css/messages.css' %}" rel="stylesheet">
         <link href="{% static 'css/scrollBar.css' %}" rel="stylesheet">
+        <link href="{% static 'css/profileDiv.css' %}" rel="stylesheet">
 
         {% block extra_css_files %}
         {% endblock %}
@@ -33,9 +35,27 @@
 
     <body>
 
+        {% include 'include/profileDiv.html' %}
         {% include 'include/messages.html' %}
 
         {% block header_section %}
+            <div class="col-md-12 container headerContainer">
+                <div class="col-md-4" align="left">
+                    <img src="{% static 'images/logo_pink.svg' %}" class="headerImage" style="width:64px; height:64px;">
+                    <h2 class="headerText">NIPPI</h2>
+                </div>
+                <div class="col-md-4" align="middle">
+                    {% block page_header %}
+                        
+                    {% endblock %}
+                </div>
+                <div class="col-md-4" align="right">
+                    {% if request.user %}
+                        <h4 class="headerSubtext">Welcome {{request.user.username}}</h4>
+                        <img src="{% static 'images/userIcon_light_blue.png' %}" class="headerImage" id="profileIcon" style="width:64px; height:64px;">
+                    {% endif %}
+                </div>
+            </div>
         {% endblock %}
 
         <div class="col-md-12 container mainContainer">
