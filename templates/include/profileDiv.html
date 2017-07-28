@@ -23,6 +23,8 @@
         <input type="text" class="form-control loginInput" id="contactNumber" placeholder="{{request.user.email}}" disabled>
     </div>
     <div class="col-md-12 profileRow profileFooter" align="middle">
-        <button type="button" class="btn btn-warning logoutButton">LOGOUT</button>
+        <a href="{% url 'analytics:logout' %}">
+            <button type="button" class="btn btn-warning logoutButton">LOGOUT</button>
+        </a>
     </div>
 </div>

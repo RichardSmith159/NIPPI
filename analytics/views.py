@@ -7,9 +7,17 @@ from nips.models import Nip
 from . import forms
 import form_errors
 from siren.models import Siren, Alert
-
+from django.contrib.auth import logout
 
 NIP_ROW_LENGTH = 4
+
+def logout_user(request):
+
+    logout(request)
+
+    return redirect("analytics:login")
+
+
 
 def login_user(request):
 

@@ -55,7 +55,6 @@ function drawGraph() {
         d.metric = +d.metric;
     });
 
-
     // Scale the range of the data
     x.domain(d3.extent(LIVE_DATA, function(d) { return d.datetime; }));
     y.domain([-100, 50]);
@@ -71,7 +70,7 @@ function drawGraph() {
 
     // Add the X Axis
     svg.append("g")
-        .attr("transform", "translate(0," + height/2 + ")")
+        .attr("transform", "translate(0," + y(0) + ")")
         .attr("class", "historicGraphAxis")
         .attr("id", "historicGraph_xAxis")
         .call(d3.axisBottom(x));
