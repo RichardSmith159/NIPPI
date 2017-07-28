@@ -8,6 +8,7 @@ from django.db import models
 class NipLocation(models.Model):
 
     name = models.CharField(max_length = 30, unique = True)
+    description = models.CharField(max_length = 200, default = "")
 
 
 class Nip(models.Model):

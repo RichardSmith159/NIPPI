@@ -1,0 +1,23 @@
+
+
+#historicTemperatureLine {
+
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+
+}
+
+
+
+.historicGraphAxis line{
+  stroke: #3f3f3f;
+}
+
+.historicGraphAxis path{
+  stroke: #3f3f3f;;
+}
+
+.historicGraphAxis text{
+  fill: #bfd8d1;
+}  

@@ -5,10 +5,13 @@
 <link href="{% static 'css/details.css' %}" rel="stylesheet">
 <link href="{% static 'css/modalOverrides.css' %}" rel="stylesheet">
 <link href="{% static 'css/alertTable.css' %}" rel="stylesheet">
+<link href="{% static 'css/graphing/historicGraph.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js_files %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
     <script type="text/javascript" src="{% static 'js/alerts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/graphing/historicGraph.js' %}"></script>
 {% endblock %}
 
 {% block header_section %}
@@ -150,7 +153,12 @@
             </div>
         </div>
         <div class="col-md-4 outerContainer leftContainer">
-            <div class="col-md-12 simpleContainer"></div>
+            <div class="col-md-12 simpleContainer" id="locationContainer">
+                <div class="col-md-12 header">
+                    <h3 class="containerHeaderText">Location</h3>
+                    <hr>
+                </div>
+            </div>
         </div>
         <div class="col-md-4 outerContainer rightContainer">
             <div class="col-md-12 simpleContainer"></div>
