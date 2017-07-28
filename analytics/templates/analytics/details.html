@@ -12,6 +12,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
     <script type="text/javascript" src="{% static 'js/alerts.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/historicGraph.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
 {% endblock %}
 
 {% block header_section %}
@@ -235,6 +236,7 @@
                 <h3>Live Feed</h3>
                 <hr>
             </div>
+            <div class="col-md-12 graphContainer" id="liveGraphContainer"></div>
         </div>
     </div>
 {% endblock %}
