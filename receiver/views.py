@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
 from django.core.cache import cache
 from nips.models import Nip
@@ -18,11 +18,19 @@ import json
 #     "time": ""
 # }
 
-def receive(request, data):
-
-    data_dict = json.loads(data)
+@csrf_exempt
+def receive(request):
+    
+    if request.method == "POST":
+        print request.POST
+    
+    data_dict = json.loads(request.POST["json_payload"])
+    
+    print data_dict, type(data_dict)
 
     if "nip_pk" in data_dict:
+
+        print "A"
 
         try:
             
@@ -37,11 +45,15 @@ def receive(request, data):
         
         else:
 
-            if nip.record_set.all().count() >= 1:
+            if nip.niprecord_set.all().count() >= 1:
 
-                record = nip.record_set.all()[0]
+                print "B"
+
+                record = nip.niprecord_set.all()[0]
             
             else:
+
+                print "C"
                 
                 NIPPILog.objects.create(
                     log_type = "A",
