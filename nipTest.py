@@ -16,7 +16,7 @@ if __name__ == "__main__":
             "data": {
                 "temperature": rand_temp,
             },
-            "time": str(datetime.now())
+            "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
         data_json = json.dumps(data_dict)

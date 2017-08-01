@@ -10,6 +10,13 @@ from nips.models import Nip
 import json
 import os
 import pprint
+from memcached_stats import MemcachedStats
+import memcache
+
+
+
+SECONDS_IN_DAY = 86400
+
 
 
 class NipRecord(models.Model):
@@ -41,8 +48,6 @@ class NipRecord(models.Model):
 
 
     def log_data(self, data_dict):
-        
-        date = datetime.strptime(data_dict["time"], '%Y-%m-%d %H:%M:%S.%f').date()
 
         log_path = os.path.join(os.path.join(self.record_directory, "tmp"), "%s.json" % data_dict["time"])
 
@@ -59,20 +64,63 @@ class NipRecord(models.Model):
 
     def cache_data(self, data_dict):
 
-        cache_uid = "%s|%s" % (self.nip.pk, data_dict["time"].replace(" ", "_"))
-        print "CUID:", cache_uid
-        cache.set(cache_uid, json.dumps(data_dict["data"]))
+        cache_uid = "%s|%s" % (self.pk, data_dict["time"].replace(" ", "_"))
+        cache.set(cache_uid, json.dumps(data_dict["data"]), SECONDS_IN_DAY)
+
+
+    def get_todays_data(self):
+
+        cache_stats = MemcachedStats("127.0.0.1", 8001)
+        all_keys = cache_stats.keys()
+
+        relevant_keys = [key.replace(":1:", "") for key in all_keys if key.split("|")[0].replace(":1:", "") == str(self.pk)]
+
+        output = {"data": []}
+
+        for key in relevant_keys:
+
+            output["data"].append({"datetime": key.split("|")[1].replace("_", " ")})
+        
+        return output
+
 
     def get_records_in_range(self, start_datetime, end_datetime):
-        pass
+        
+        temp_directory = os.path.join(self.record_directory, "tmp")
+
+        if end_datetime.date() == datetime.today().date():
+
+            output = self.get_todays_data()
+        
+        else:
+
+            output = {"data": []}
+
+        for temp_file in os.listdir(self.record_directory):
+            
+            if temp_file[-5:] == ".json":
+
+                file_datetime_string = temp_file.replace(".json", "")
+
+                file_datetime = datetime.strptime(file_datetime_string, "%Y-%m-%d")
+
+                if file_datetime > start_datetime:
+
+                    with open(os.path.join(self.record_directory, file_datetime_string + ".json")) as j_file:
+                        loaded_json = json.load(j_file)
+
+                        print loaded_json
+                    
+                    print output
+
+                    output["data"] += loaded_json["data"]
+        
+        return output
+
 
     def get_past_24_hours(self):
         pass
-    
-    def get_todays_data(self):
 
-        midnight_today = recordUtils.get_midnight_for_date(datetime.now())
-        data_dict = recordUtils.get_records_from_cache(self.nip.pk, self.nip.name)
     
     def get_past_week(self):
         pass
