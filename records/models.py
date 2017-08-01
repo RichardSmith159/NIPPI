@@ -91,6 +91,11 @@ class NipRecord(models.Model):
 
             os.remove(os.path.join(temp_directory, temp_file))
 
+
+    def write_to_archive(self, data, date_string):
+
+        with open(os.path.join(self.record_directory, "%s.json" % date_string), "w") as j_file:
+            json.dump(data, j_file)
         
     
     def collate_temp_data(self):
