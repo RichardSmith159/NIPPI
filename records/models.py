@@ -60,6 +60,8 @@ class NipRecord(models.Model):
             with open(log_path, "w") as temp_file:
                 json.dump(data_dict["data"], temp_file)
 
+
+
     def get_relevant_keys(self):
 
         cache_stats = MemcachedStats("127.0.0.1", 8001)
@@ -98,97 +100,123 @@ class NipRecord(models.Model):
         return output
 
 
-    def get_records_in_range(self, start_datetime, end_datetime):
-        
-        print start_datetime
-        print end_datetime
 
+    def get_archived_data(self, start_datetime, end_datetime):
+
+        output = {"data": []}
+
+        for temp_file in os.listdir(self.record_directory):
+            
+            if temp_file[-5:] == ".json":
+
+                file_datetime_string = temp_file.replace(".json", "")
+
+                file_datetime = datetime.strptime(file_datetime_string, "%Y-%m-%d")
+
+                if file_datetime.date() >= start_datetime.date() and file_datetime.date() <= end_datetime.date():
+
+                    with open(os.path.join(self.record_directory, file_datetime_string + ".json")) as j_file:
+                        loaded_json = json.load(j_file)
+
+                    for data_point in loaded_json["data"]:
+                        
+                        if datetime.strptime(data_point["datetime"], "%Y-%m-%d %H:%M:%S") <= end_datetime:
+
+                            output["data"].append(data_point)
+
+
+        return output
+
+
+
+    def get_records_in_range(self, start_datetime, end_datetime):
+
+        
         temp_directory = os.path.join(self.record_directory, "tmp")
 
-        if end_datetime.date() == datetime.today().date() and start_datetime.date() != datetime.today().date():
 
-            output = self.get_todays_data()
-        
-        elif end_datetime.date() == datetime.today().date() and start_datetime.date() == datetime.today().date():
 
+        if end_datetime.date() == datetime.today().date() and start_datetime.date() == datetime.today().date():
+            
             output = {"data": []}
 
             keys = self.get_relevant_keys()
 
             for key in keys:
                 
-                string_datetime = key.split("|")[1].replace("_", " ")
-                
+                string_datetime = key.split("|")[1].replace("_", " ")    
                 key_datetime = datetime.strptime(string_datetime, "%Y-%m-%d %H:%M:%S")
-                
-                print "kd:", key_datetime
 
                 if key_datetime >= start_datetime and key_datetime <= end_datetime:
 
-                    print "HERE"
-
                     cached_data_point = json.loads(cache.get(key))
-
                     data_point = {"datetime": string_datetime}
 
                     for k, v, in cached_data_point.iteritems():
                         data_point[k] = v
                 
                     output["data"].append(data_point)
+        
 
-            pprint.pprint(output)
+
+        elif end_datetime.date() == datetime.today().date() and start_datetime.date() != datetime.today().date():
+            
+            output = self.get_todays_data()
+
+            archive_output = self.get_archived_data(start_datetime, end_datetime)
+            output["data"] += archive_output["data"]
         
         else:
 
-            output = {"data": []}
+            output = self.get_archived_data(start_datetime, end_datetime)
 
-            for temp_file in os.listdir(self.record_directory):
-                
-                if temp_file[-5:] == ".json":
-
-                    file_datetime_string = temp_file.replace(".json", "")
-
-                    file_datetime = datetime.strptime(file_datetime_string, "%Y-%m-%d")
-
-                    if file_datetime >= start_datetime:
-
-                        with open(os.path.join(self.record_directory, file_datetime_string + ".json")) as j_file:
-                            loaded_json = json.load(j_file)
-
-                            print loaded_json
-                        
-                        print output
-
-                        output["data"] += loaded_json["data"]
-        
         return output
 
+            
 
     def get_past_24_hours(self):
-        pass
+
+        now = datetime.now()
+        this_time_yesterday = now - timedelta(days = 1)
+
+        return self.get_records_in_range(this_time_yesterday, now)
 
     
+
     def get_past_week(self):
-        pass
+        
+        now = datetime.now()
+        this_time_a_week_ago = now - timedelta(days = 7)
+        
+        return self.get_records_in_range(this_time_a_week_ago, now)
     
+
+
     def get_past_hour(self):
-        pass
+
+        now = datetime.now()
+        this_time_a_week_ago = now - timedelta(hours = 1)
+        
+        return self.get_records_in_range(this_time_a_week_ago, now)
     
+
+
     def get_past_quarter_hour(self):
 
         now = datetime.now()
-
         quarter_hour_ago = now - timedelta(minutes = 15)
         
         return self.get_records_in_range(quarter_hour_ago, now)
+
+
 
     def clear_temp_data(self):
 
         temp_directory = os.path.join(self.record_directory, "tmp")
 
         for temp_file in os.listdir(temp_directory):
-
             os.remove(os.path.join(temp_directory, temp_file))
+
 
 
     def write_to_archive(self, data, date_string):
@@ -196,7 +224,8 @@ class NipRecord(models.Model):
         with open(os.path.join(self.record_directory, "%s.json" % date_string), "w") as j_file:
             json.dump(data, j_file)
         
-    
+
+
     def collate_temp_data(self):
 
         output_data = {"data": []}
@@ -210,11 +239,9 @@ class NipRecord(models.Model):
             data_point = {"datetime": file_datetime_string.split(".")[0]}
 
             with open(os.path.join(temp_directory, temp_file)) as j_file:
-                
                 loaded_data = json.load(j_file)
 
                 for k, v in loaded_data.iteritems():
-
                     data_point[k] = v
 
             output_data["data"].append(data_point)
