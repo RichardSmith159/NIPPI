@@ -105,11 +105,11 @@ class NipRecord(models.Model):
 
         output = {"data": []}
 
-        for temp_file in os.listdir(self.record_directory):
+        for record_file in os.listdir(self.record_directory):
             
-            if temp_file[-5:] == ".json":
+            if record_file[-5:] == ".json":
 
-                file_datetime_string = temp_file.replace(".json", "")
+                file_datetime_string = record_file.replace(".json", "")
 
                 file_datetime = datetime.strptime(file_datetime_string, "%Y-%m-%d")
 
@@ -207,6 +207,37 @@ class NipRecord(models.Model):
         quarter_hour_ago = now - timedelta(minutes = 15)
         
         return self.get_records_in_range(quarter_hour_ago, now)
+
+
+
+    def get_all_archived_data(self):
+
+        output = {"data": []}
+
+        for record_file in os.listdir(self.record_directory):
+            
+            if record_file[-5:] == ".json":
+
+                with open(os.path.join(self.record_directory, record_file)) as j_file:
+                    loaded_json = json.load(j_file)
+
+                    output["data"] += loaded_json["data"]
+
+        return output
+
+
+
+    def get_all_data(self):
+
+        output = {"data": []}
+
+        todays_data = self.get_todays_data()
+        archived_data = self.get_all_archived_data()
+
+        output["data"] += todays_data["data"]
+        output["data"] += archived_data["data"]
+
+        return output
 
 
 
