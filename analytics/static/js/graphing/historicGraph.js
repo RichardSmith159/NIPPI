@@ -7,7 +7,9 @@ $(document).ready(function() {
 
     $(".timescaleOption").click(function() {
         var selectedTimescaleFlag = $(this).attr("id");
+        
         var nipPk = $(".nipPK").attr("id");
+        
         selectTimescaleOption(nipPk, selectedTimescaleFlag);
 
     });
@@ -17,9 +19,16 @@ $(document).ready(function() {
         $.ajax({
             url: "/analytics/get_historical_data/" + nipPK + "/" + timescaleString,
             success: function(data) {
-                console.log(data);
+                
+                function sortByDateAscending(a, b) {
+                    return b.datetime - a.datetime;
+                }
+
+                // data_sorted = data["data"].sort(sortByDateAscending);
+
                 $("#historicGraph").remove();
                 drawGraph(data["data"], "temperature");
+
             }
         });
     }
@@ -31,6 +40,9 @@ $(document).ready(function() {
         var width = $("#historicGraphContainer").width() - margin.top - margin.bottom;
         var height = $("#historicGraphContainer").height() - margin.left - margin.right;
 
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].datetime);
+        }
 
         // parse the date / time
         var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
@@ -66,7 +78,7 @@ $(document).ready(function() {
 
         // Scale the range of the data
         x.domain(d3.extent(data, function(d) { return d.datetime; }));
-        y.domain([-100, 100]);
+        y.domain([-100, 50]);
 
 
         // Add the valueline path.

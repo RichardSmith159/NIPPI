@@ -9,7 +9,7 @@ import form_errors
 from siren.models import Siren, Alert
 from django.contrib.auth import logout
 import json
-
+import pprint
 NIP_ROW_LENGTH = 4
 
 
@@ -78,9 +78,8 @@ def get_historical_data(request, nip_pk, timescale):
 
                 data = {"status": "WARNING", "message": "TIMESCALE_NOT_IMPLEMENTED"}
     
-    print data
-
-    print len(data["data"])
+    for point in data["data"]:
+        print point
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 

@@ -130,11 +130,8 @@ class NipRecord(models.Model):
 
 
     def get_records_in_range(self, start_datetime, end_datetime):
-
         
         temp_directory = os.path.join(self.record_directory, "tmp")
-
-
 
         if end_datetime.date() == datetime.today().date() and start_datetime.date() == datetime.today().date():
             
@@ -152,12 +149,11 @@ class NipRecord(models.Model):
                     cached_data_point = json.loads(cache.get(key))
                     data_point = {"datetime": string_datetime}
 
-                    for k, v, in cached_data_point.iteritems():
+                    for k, v, in cached_data_point["data"].iteritems():
+                        print k, ":", v
                         data_point[k] = v
                 
                     output["data"].append(data_point)
-        
-
 
         elif end_datetime.date() == datetime.today().date() and start_datetime.date() != datetime.today().date():
             
