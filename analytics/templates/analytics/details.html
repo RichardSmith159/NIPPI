@@ -95,10 +95,13 @@
         <div class="col-md-6 outerContainer rightContainer">
             <div class="col-md-12 simpleContainer" id="metricHistoryContainer">
                 <div class="col-md-12 header">
-                    <h3 class="containerHeaderText">Historic Data</h3>
+                    <h3 class="containerHeaderText" id="historicDataTitle">Historic Data</h3>
                     <hr>
                 </div>
-                <div class="graphContainer" id="historicGraphContainer"></div>
+                <div class="nipPK" id="{{nip.pk}}"></div>
+                <div class="graphContainer" id="historicGraphContainer">
+                    {% include 'include/timescaleDropdown.html' %}
+                </div>
             </div>
         </div>
     </div>

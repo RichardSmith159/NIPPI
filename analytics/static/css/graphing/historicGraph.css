@@ -15,9 +15,20 @@
 }
 
 .historicGraphAxis path{
-  stroke: #3f3f3f;;
+  stroke: #3f3f3f;
 }
 
 .historicGraphAxis text{
   fill: #bfd8d1;
-}  
+}
+
+
+#timescaleDropdown {
+
+  position: absolute;
+  width: 20%;
+  z-index: 10;
+  top: 30%;
+  right: 2%;
+
+}

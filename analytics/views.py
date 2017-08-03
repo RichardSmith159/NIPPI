@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from nips.models import Nip
@@ -8,8 +8,84 @@ from . import forms
 import form_errors
 from siren.models import Siren, Alert
 from django.contrib.auth import logout
+import json
 
 NIP_ROW_LENGTH = 4
+
+
+
+
+def get_historical_data(request, nip_pk, timescale):
+
+    allowed_timescales = [
+        "TODAY",
+        "24HOURS",
+        "WEEK",
+        "HOUR",
+        "15MINS",
+        "ALL"
+    ]
+
+    try:
+
+        selected_nip = Nip.objects.get(pk = nip_pk)
+    
+    except Nip.DoesNotExist:
+
+        data = {"status": "ERROR", "message": "NIP_NOT_FOUND"}
+    
+    else:
+
+        try:
+
+            selected_record = selected_nip.niprecord_set.all()[0]
+        
+        except NipRecord.DoesNotExist:
+
+            data = {"STATUS": "ERROR", "message": "RECORDS_NOT_FOUND"}
+        
+        else:
+
+            if timescale not in allowed_timescales:
+
+                data = {"status": "ERROR", "message": "TIMESCALE_NOT_ALLOWED"}
+            
+            elif timescale == "TODAY":
+
+                data = selected_record.get_todays_data()
+            
+            elif timescale == "24HOURS":
+
+                data = selected_record.get_past_24_hours()
+            
+            elif timescale == "WEEK":
+
+                data = selected_record.get_past_week()
+            
+            elif timescale == "HOUR":
+
+                data = selected_record.get_past_hour()
+            
+            elif timescale == "15MINS":
+
+                data = selected_record.get_past_quarter_hour()
+            
+            elif timescale == "ALL":
+
+                data = selected_record.get_all_data()
+            
+            else:
+
+                data = {"status": "WARNING", "message": "TIMESCALE_NOT_IMPLEMENTED"}
+    
+    print data
+
+    print len(data["data"])
+
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+
 
 def logout_user(request):
 
