@@ -70,7 +70,6 @@ class EditSirenForm(forms.Form):
                     selected_siren.text_notification = True
                 else:
                     selected_siren.text_notification = False
-
             
             selected_siren.save()
             

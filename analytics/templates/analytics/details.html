@@ -15,6 +15,7 @@
     <script type="text/javascript" src="{% static 'js/graphing/historicGraph.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/addSiren.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/editSiren.js' %}"></script>
 {% endblock %}
 
 
@@ -30,10 +31,19 @@
     {% include 'include/sirenDetailsModal.html' %}
     {% include 'include/addSirenModal.html' %}
     {% include 'include/confirmNewSirenModal.html' %}
+    {% include 'include/editSirenModal.html' %}
+    {% include 'include/confirmEditSirenModal.html' %}
     
     <form id="add_siren_form" method="post" name="add_siren_form">
         {% csrf_token %}
         {% for field in add_siren_form %}
+            {{field.as_hidden}}
+        {% endfor %}
+    </form>
+
+        <form id="edit_siren_form" method="post" name="edit_siren_form">
+        {% csrf_token %}
+        {% for field in edit_siren_form %}
             {{field.as_hidden}}
         {% endfor %}
     </form>
@@ -145,10 +155,10 @@
                                 <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
                                 {% if siren.creator == request.user %}
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit">Edit</button></td>
-                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit">X</button></td>
+                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger removeSiren">X</button></td>
                                 {% else %}
                                     <td class="sirenEditCell"><button type="button" class="btn btn-xs btn-warning openSirenEdit disabled">Edit</button></td>
-                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger openSirenEdit disabled">X</button></td>
+                                    <td class="sirenRemoveCell"><button type="button" class="btn btn-xs btn-danger removeSiren disabled">X</button></td>
                                 {% endif %}
                                 </tr>
                             {% endfor %}
