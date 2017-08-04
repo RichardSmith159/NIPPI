@@ -1,34 +1,36 @@
 from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from siren.models import Alert
-
-
+from siren.models import Alert, Siren
+from nips.models import Nip
 
 class AddSirenForm(forms.Form):
 
+    nip_pk = forms.IntegerField(required = True)
     name = forms.CharField(required = True, max_length = 30)
     monitor_variable = forms.CharField(required = True, max_length = 30)
     tolerance = forms.IntegerField(required = True)
     acceptable_bounds_upper_limit = forms.FloatField(required = True)
     acceptable_bounds_lower_limit = forms.FloatField(required = True)
-    message = forms.CharField(required = True, max_length = 100)
+    new_siren_message = forms.CharField(required = True, max_length = 100)
     email_notification = forms.BooleanField(required = False)
     text_notification = forms.BooleanField(required = False)
 
     def process(self, request):
 
+        cleaned_nip_pk = self.cleaned_data["nip_pk"]
         cleaned_name = self.cleaned_data["name"]
         cleaned_monitor_variable = self.cleaned_data["monitor_variable"]
         cleaned_tolerance = self.cleaned_data["tolerance"]
         cleaned_acceptable_bounds_upper_limit = self.cleaned_data["acceptable_bounds_upper_limit"]
         cleaned_acceptable_bounds_lower_limit = self.cleaned_data["acceptable_bounds_lower_limit"]
-        cleaned_message = self.cleaned_data["message"]
+        cleaned_message = self.cleaned_data["new_siren_message"]
         cleaned_email_notification = self.cleaned_data["email_notification"]
         cleaned_text_notification = self.cleaned_data["text_notification"]
 
-        siren.objects.create(
+        Siren.objects.create(
             name = cleaned_name,
+            nip = Nip.objects.get(pk = cleaned_nip_pk),
             monitor_variable = cleaned_monitor_variable,
             tolerance = cleaned_tolerance,
             acceptable_bounds_upper_limit = cleaned_acceptable_bounds_upper_limit,

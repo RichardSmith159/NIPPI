@@ -199,6 +199,8 @@ def nip_details(request, nip_pk):
 
     if request.method == "POST":
 
+        print request.POST
+
         if "add_siren_form" in request.POST:
 
             add_siren_form = forms.AddSirenForm(request.POST)
@@ -248,6 +250,6 @@ def nip_details(request, nip_pk):
             "nip": nip,
             "alerts": alerts,
             "add_siren_form": add_siren_form,
-            "respond_to_alert_form": respond_to_alert_form
+            "respond_to_alert_form": respond_to_alert_form,
         }
     )

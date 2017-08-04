@@ -29,6 +29,7 @@
     {% include 'include/confirmSeenModal.html' %}
     {% include 'include/sirenDetailsModal.html' %}
     {% include 'include/addSirenModal.html' %}
+    {% include 'include/confirmNewSirenModal.html' %}
     
     <form id="add_siren_form" method="post" name="add_siren_form">
         {% csrf_token %}
@@ -43,7 +44,7 @@
             {{field.as_hidden}}
         {% endfor %}
     </form>
-
+    <div class="nipPKContainer" id="{{nip.pk}}"></div>
     <div class="col-md-12 dataRow" id="topRow">
         <div class="col-md-6 outerContainer leftContainer">
             <div class="col-md-12 simpleContainer" id="alertContainer">
