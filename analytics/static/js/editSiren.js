@@ -41,4 +41,22 @@ $(document).ready(function() {
 
     });
 
+    $("#acceptEditSiren").click(function() {
+
+        $("#id_edit_siren_pk").val();
+        $("#id_edit_siren_name").val();
+        $("#id_edit_siren_monitor_variable").val();
+        $("#id_edit_siren_tolerance").val();
+        $("#id_edit_siren_acceptable_bounds_upper_limit").val();
+        $("#id_edit_siren_acceptable_bounds_lower_limit").val();
+        $("#id_edit_siren_edit_siren_message").val();
+        $("#id_edit_siren_email_notification").val();
+        $("#id_edit_siren_text_notification").val();
+
+
+
+        $("#editSirenModal").modal("hide");
+        $("#confirmSirenEditModal").modal("show");
+    });
+
 });
