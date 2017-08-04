@@ -31,7 +31,7 @@ class Siren(models.Model):
     email_notification = models.BooleanField(default = True)
     text_notification = models.BooleanField(default = False)
 
-    def alert_users(self):
+    def alert_subscribers(self):
         pass
 
     def get_verbose_status(self):

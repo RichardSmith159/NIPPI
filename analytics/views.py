@@ -14,6 +14,47 @@ NIP_ROW_LENGTH = 4
 
 
 
+def get_siren_data(request, siren_pk):
+
+    data = {}
+
+    try:
+
+        selected_siren = Siren.objects.get(pk = siren_pk)
+    
+    except Siren.DoesNotExist:
+
+        data = {"status": "ERROR", "message": "SIREN_NOT_FOUND"}
+    
+    else:
+        
+        data = {
+            "name": selected_siren.name,
+            "registered_users": [user.username for user in selected_siren.registered_users.all()],
+            "monitor_variable": selected_siren.monitor_variable,
+            "tolerance": selected_siren.tolerance,
+            "acceptable_bounds_upper_limit": selected_siren.acceptable_bounds_upper_limit,
+            "acceptable_bounds_lower_limit": selected_siren.acceptable_bounds_lower_limit,
+            "message": selected_siren.message,
+            "email_notification": selected_siren.email_notification,
+            "text_notification": selected_siren.text_notification
+        }
+        
+        if selected_siren.creator:
+
+            data["creator"] = selected_siren.creator.username
+        
+        else:
+
+            data["creator"] = "UNKNOWN"
+        
+        
+
+            
+
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 
 def get_historical_data(request, nip_pk, timescale):
 

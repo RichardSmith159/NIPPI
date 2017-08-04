@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^login/$', views.login_user, name = "login"),
     url(r'^logout/$', views.logout_user, name = "logout"),
     url(r'^get_historical_data/(?P<nip_pk>\d+)/(?P<timescale>[\w\-]+)/$', views.get_historical_data, name = "getHistoricalData"),
+    url(r'^get_siren_data/(?P<siren_pk>\d+)/$', views.get_siren_data, name = "getSirenData"),
 ]

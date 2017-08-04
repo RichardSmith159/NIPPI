@@ -11,6 +11,7 @@
 {% block extra_js_files %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
     <script type="text/javascript" src="{% static 'js/alerts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sirenDetails.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/historicGraph.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
 {% endblock %}
@@ -21,8 +22,10 @@
 {% endblock %}
 
 {% block page_content %}
+
     {% include 'include/confirmHandledModal.html' %}
     {% include 'include/confirmSeenModal.html' %}
+    {% include 'include/sirenDetailsModal.html' %}
 
     <form id="respond_to_alert_form" method="post" name="respond_to_alert_form">
         {% csrf_token %}
@@ -125,7 +128,7 @@
                         </thead>
                         <tbody>
                             {% for siren in nip.siren_set.all %}
-                                <tr class="sirenRow {{siren.status}}_Siren" id="{{siren.pk}}">
+                                <tr class="sirenRow {{siren.status}}_Siren" id="siren_{{siren.pk}}">
                                 <td class="sirenNameCell">{{siren.name}}</td>
                                 <td class="sirenStatusCell">{{siren.get_verbose_status}}</td>
                                 <td class="sirenDetailsCell"><button type="button" class="btn btn-xs btn-info openSirenDetails">Details</button></td>
