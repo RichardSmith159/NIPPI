@@ -24,8 +24,6 @@ function getSirenDetails(sirenPK) {
 
             $("#sirenDetailsModal").modal("show");
 
-
-
         }
     });
 }

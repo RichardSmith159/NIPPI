@@ -1,0 +1,87 @@
+<div id="addSirenModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Modal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Name:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="newSirenName">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Monitoring:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="newSirenVariable" placeholder="temperature">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Tolerance:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" id="newSirenTolerance" placeholder="3" min=1>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Upper Limit:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" id="newSirenUpperLimit">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Lower Limit:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" id="newSirenLowerLimit">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Alert Message:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="newSirenMessage">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Email Alerts Enabled:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" id="newSirenEmailEnabled" type="checkbox" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4>Text Alerts Enabled:</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" id="newSirenTextEnabled" type="checkbox" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12"><hr></div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

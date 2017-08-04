@@ -14,6 +14,7 @@
     <script type="text/javascript" src="{% static 'js/sirenDetails.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/historicGraph.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/addSiren.js' %}"></script>
 {% endblock %}
 
 
@@ -21,11 +22,13 @@
     <h2 class="headerSubtext" id="pageHeader">Nip: {{nip.name}}</h2>            
 {% endblock %}
 
+
 {% block page_content %}
 
     {% include 'include/confirmHandledModal.html' %}
     {% include 'include/confirmSeenModal.html' %}
     {% include 'include/sirenDetailsModal.html' %}
+    {% include 'include/addSirenModal.html' %}
 
     <form id="respond_to_alert_form" method="post" name="respond_to_alert_form">
         {% csrf_token %}
@@ -141,6 +144,11 @@
                                 {% endif %}
                                 </tr>
                             {% endfor %}
+                            <tr>
+                                <td class="sirenAddCell" colspan="5" align="middle">
+                                    <button type="button" class="btn btn-success addSiren">+</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
