@@ -4,6 +4,81 @@ from django.contrib import messages
 from siren.models import Alert, Siren
 from nips.models import Nip
 
+
+class EditSirenForm(forms.Form):
+    
+    edit_siren_pk = forms.IntegerField(required = True)
+    edit_siren_name = forms.CharField(required = False, max_length = 30)
+    edit_siren_monitor_variable = forms.CharField(required = False, max_length = 30)
+    edit_siren_tolerance = forms.IntegerField(required = False)
+    edit_siren_acceptable_bounds_upper_limit = forms.FloatField(required = False)
+    edit_siren_acceptable_bounds_lower_limit = forms.FloatField(required = False)
+    edit_siren_edit_siren_message = forms.CharField(required = False, max_length = 100)
+    edit_siren_email_notification = forms.CharField(max_length = 1, required = False)
+    edit_siren_text_notification = forms.CharField(max_length = 1, required = False)
+
+
+    def process(self, request):
+
+        cleaned_siren_pk = self.cleaned_data["edit_siren_pk"]
+        cleaned_siren_name = self.cleaned_data["edit_siren_name"]
+        cleaned_siren_monitor_variable = self.cleaned_data["edit_siren_monitor_variable"]
+        cleaned_siren_tolerance = self.cleaned_data["edit_siren_tolerance"]
+        cleaned_siren_acceptable_bounds_upper_limit = self.cleaned_data["edit_siren_acceptable_bounds_upper_limit"]
+        cleaned_siren_acceptable_bounds_lower_limit = self.cleaned_data["edit_siren_acceptable_bounds_lower_limit"]
+        cleaned_siren_edit_siren_message = self.cleaned_data["edit_siren_edit_siren_message"]
+        cleaned_siren_email_notification = self.cleaned_data["edit_siren_email_notification"]
+        cleaned_siren_text_notification = self.cleaned_data["edit_siren_text_notification"]
+
+        try:
+
+            selected_siren = Siren.objects.get(pk = cleaned_siren_pk)
+        
+        except Siren.DoesNotExist:
+
+            messages.error(request, "The selected siren could not be found in the database.")
+        
+        else:
+
+            
+            if cleaned_siren_name:
+                selected_siren.name = cleaned_siren_name
+            
+            if cleaned_siren_monitor_variable:
+                selected_siren.monitor_variable = cleaned_siren_monitor_variable
+            
+            if cleaned_siren_tolerance:
+                selected_siren.tolerance = cleaned_siren_tolerance
+            
+            if cleaned_siren_acceptable_bounds_upper_limit:
+                selected_siren.acceptable_bounds_upper_limit = cleaned_siren_acceptable_bounds_upper_limit
+            
+            if cleaned_siren_acceptable_bounds_lower_limit:
+                selected_siren.acceptable_bounds_lower_limit = cleaned_siren_acceptable_bounds_lower_limit
+            
+            if cleaned_siren_edit_siren_message:
+                selected_siren.message = cleaned_siren_edit_siren_message
+            
+            if cleaned_siren_email_notification:
+                if cleaned_email_notification == "Y":
+                    selected_siren.email_notification = True
+                else:
+                    selected_siren.email_notification = False
+            
+            if cleaned_siren_text_notification:
+                if cleaned_siren_text_notification == "Y":
+                    selected_siren.text_notification = True
+                else:
+                    selected_siren.text_notification = False
+
+            
+            selected_siren.save()
+            
+            messages.success(request, "The changes were made successfully.")
+
+
+
+
 class AddSirenForm(forms.Form):
 
     nip_pk = forms.IntegerField(required = True)
@@ -15,7 +90,7 @@ class AddSirenForm(forms.Form):
     new_siren_message = forms.CharField(required = True, max_length = 100)
     email_notification = forms.BooleanField(required = False)
     text_notification = forms.BooleanField(required = False)
-
+ 
     def process(self, request):
 
         cleaned_nip_pk = self.cleaned_data["nip_pk"]
@@ -30,6 +105,7 @@ class AddSirenForm(forms.Form):
 
         Siren.objects.create(
             name = cleaned_name,
+            creator = request.user,
             nip = Nip.objects.get(pk = cleaned_nip_pk),
             monitor_variable = cleaned_monitor_variable,
             tolerance = cleaned_tolerance,

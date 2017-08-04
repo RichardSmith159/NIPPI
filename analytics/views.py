@@ -196,10 +196,21 @@ def nip_details(request, nip_pk):
 
     respond_to_alert_form = forms.RespondToAlertForm()
     add_siren_form = forms.AddSirenForm()
+    edit_siren_form = forms.EditSirenForm()
 
     if request.method == "POST":
 
-        print request.POST
+        if "edit_siren_form" in request.POST:
+
+            edit_siren_form = forms.EditSirenForm(request.POST)
+
+            if edit_siren_form.is_valid():
+
+                edit_siren_form.process(request)
+            
+            else:
+                
+                form_errors.convert_form_errors_to_messages(edit_siren_form, request)
 
         if "add_siren_form" in request.POST:
 
