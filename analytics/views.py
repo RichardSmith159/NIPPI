@@ -195,18 +195,35 @@ def overview(request):
 def nip_details(request, nip_pk):
 
     respond_to_alert_form = forms.RespondToAlertForm()
+    add_siren_form = forms.AddSirenForm()
 
     if request.method == "POST":
 
-        respond_to_alert_form = forms.RespondToAlertForm(request.POST)
+        if "add_siren_form" in request.POST:
 
-        if respond_to_alert_form.is_valid():
+            add_siren_form = forms.AddSirenForm(request.POST)
 
-            respond_to_alert_form.process(request)
-        
-        else:
+            if add_siren_form.is_valid():
 
-            form_errors.convert_form_errors_to_messages(respond_to_alert_form, request)
+                add_siren_form.process(request)
+            
+            else:
+
+                form_errors.convert_form_errors_to_messages(add_siren_form, request)
+
+            
+
+        if "respond_to_alert_form" in request.POST:
+                
+            respond_to_alert_form = forms.RespondToAlertForm(request.POST)
+
+            if respond_to_alert_form.is_valid():
+
+                respond_to_alert_form.process(request)
+            
+            else:
+
+                form_errors.convert_form_errors_to_messages(respond_to_alert_form, request)
 
 
     try:
@@ -224,13 +241,13 @@ def nip_details(request, nip_pk):
         
         alerts = Alert.objects.filter(siren__nip = nip).order_by("status")
 
-
     return render(
         request,
         "analytics/details.html",
         {
             "nip": nip,
             "alerts": alerts,
+            "add_siren_form": add_siren_form,
             "respond_to_alert_form": respond_to_alert_form
         }
     )
