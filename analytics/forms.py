@@ -5,6 +5,29 @@ from siren.models import Alert, Siren
 from nips.models import Nip
 
 
+
+class DeleteSirenForm(forms.Form):
+
+    delete_siren_pk = forms.IntegerField(required = True)
+
+    def process(self, request):
+
+        cleaned_siren_pk = self.cleaned_data["delete_siren_pk"]
+
+        try:
+
+            selected_siren = Siren.objects.get(pk = cleaned_siren_pk)
+        
+        except Siren.DoesNotExist:
+
+            messages.error(request, "The selected siren could not be found in the database.")
+        
+        else:
+
+            selected_siren.delete()
+            messages.success(request, "The selected siren was deleted successfully.")
+
+
 class EditSirenForm(forms.Form):
     
     edit_siren_pk = forms.IntegerField(required = True)

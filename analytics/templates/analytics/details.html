@@ -16,6 +16,7 @@
     <script type="text/javascript" src="{% static 'js/graphing/liveFeed.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/addSiren.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/editSiren.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/deleteSiren.js' %}"></script>
 {% endblock %}
 
 
@@ -33,7 +34,15 @@
     {% include 'include/confirmNewSirenModal.html' %}
     {% include 'include/editSirenModal.html' %}
     {% include 'include/confirmSirenEditModal.html' %}
-    
+    {% include 'include/confirmDeleteSirenModal.html' %}
+
+    <form id="delete_siren_form" method="post" name="delete_siren_form">
+        {% csrf_token %}
+        {% for field in delete_siren_form %}
+            {{field.as_hidden}}
+        {% endfor %}
+    </form>
+
     <form id="add_siren_form" method="post" name="add_siren_form">
         {% csrf_token %}
         {% for field in add_siren_form %}
@@ -41,11 +50,11 @@
         {% endfor %}
     </form>
 
-        <form id="edit_siren_form" method="post" name="edit_siren_form">
-        {% csrf_token %}
-        {% for field in edit_siren_form %}
-            {{field.as_hidden}}
-        {% endfor %}
+    <form id="edit_siren_form" method="post" name="edit_siren_form">
+    {% csrf_token %}
+    {% for field in edit_siren_form %}
+        {{field.as_hidden}}
+    {% endfor %}
     </form>
 
     <form id="respond_to_alert_form" method="post" name="respond_to_alert_form">

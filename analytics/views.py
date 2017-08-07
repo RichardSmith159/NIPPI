@@ -197,8 +197,21 @@ def nip_details(request, nip_pk):
     respond_to_alert_form = forms.RespondToAlertForm()
     add_siren_form = forms.AddSirenForm()
     edit_siren_form = forms.EditSirenForm()
+    delete_siren_form = forms.DeleteSirenForm()
 
     if request.method == "POST":
+
+        if "delete_siren_form" in request.POST:
+
+            delete_siren_form = forms.DeleteSirenForm(request.POST)
+
+            if delete_siren_form.is_valid():
+
+                delete_siren_form.process(request)
+            
+            else:
+
+                form_errors.convert_form_errors_to_messages(delete_siren_form, request)
 
         if "edit_siren_form" in request.POST:
 
@@ -262,6 +275,7 @@ def nip_details(request, nip_pk):
             "alerts": alerts,
             "add_siren_form": add_siren_form,
             "edit_siren_form": edit_siren_form,
+            "delete_siren_form": delete_siren_form,
             "respond_to_alert_form": respond_to_alert_form,
         }
     )
