@@ -60,7 +60,7 @@ class EditSirenForm(forms.Form):
                 selected_siren.message = cleaned_siren_edit_siren_message
             
             if cleaned_siren_email_notification:
-                if cleaned_email_notification == "Y":
+                if cleaned_siren_email_notification == "Y":
                     selected_siren.email_notification = True
                 else:
                     selected_siren.email_notification = False

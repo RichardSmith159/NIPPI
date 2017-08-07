@@ -1,5 +1,5 @@
 
-function getSirenDetails(sirenPK) {
+function getSirenDetailsForEdit(sirenPK) {
     $.ajax({
         url: "/analytics/get_siren_data/" + sirenPK,
         success: function(data) {
@@ -37,26 +37,51 @@ $(document).ready(function() {
     $(".openSirenEdit").click(function() {
         
         var sirenPK = $(this).parent().parent().attr("id").replace("siren_", "");
-        getSirenDetails(sirenPK);
+
+        $("#id_edit_siren_pk").val(sirenPK);
+
+        getSirenDetailsForEdit(sirenPK);
 
     });
 
     $("#acceptEditSiren").click(function() {
 
-        $("#id_edit_siren_pk").val();
-        $("#id_edit_siren_name").val();
-        $("#id_edit_siren_monitor_variable").val();
-        $("#id_edit_siren_tolerance").val();
-        $("#id_edit_siren_acceptable_bounds_upper_limit").val();
-        $("#id_edit_siren_acceptable_bounds_lower_limit").val();
-        $("#id_edit_siren_edit_siren_message").val();
-        $("#id_edit_siren_email_notification").val();
-        $("#id_edit_siren_text_notification").val();
 
+        if ($("#editSirenName").val()) {
+            $("#id_edit_siren_name").val($("#editSirenName").val());
+        }
+        if ($("#editSirenVariable").val()) {
+            $("#id_edit_siren_monitor_variable").val($("#editSirenVariable").val());
+        }
 
+        if ($("#editSirenTolerance").val()) {
+            $("#id_edit_siren_tolerance").val($("#editSirenTolerance").val());
+        }
+
+        if ($("#editSirenUpperLimit").val()) {
+            $("#id_edit_siren_acceptable_bounds_upper_limit").val($("#editSirenUpperLimit").val());
+        }
+        if ($("#editSirenLowerLimit").val()) {
+            $("#id_edit_siren_acceptable_bounds_lower_limit").val($("#editSirenLowerLimit").val());
+        }
+        if ($("#editSirenMessage").val()) {
+            $("#id_edit_siren_edit_siren_message").val($("#editSirenMessage").val());
+        }
+        
+        if ($("#editSirenEmailEnabled").is(":checked")) {
+            $("#id_edit_siren_email_notification").val("Y");
+        } else {
+            $("#id_edit_siren_email_notification").val("N");
+        }
+        if ($("#editSirenTextEnabled").is(":checked")) {
+            $("#id_edit_siren_text_notification").val("Y");
+        } else {
+            $("#id_edit_siren_text_notification").val("N");
+        }
 
         $("#editSirenModal").modal("hide");
         $("#confirmSirenEditModal").modal("show");
+
     });
 
 });

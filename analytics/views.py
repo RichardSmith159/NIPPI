@@ -261,6 +261,7 @@ def nip_details(request, nip_pk):
             "nip": nip,
             "alerts": alerts,
             "add_siren_form": add_siren_form,
+            "edit_siren_form": edit_siren_form,
             "respond_to_alert_form": respond_to_alert_form,
         }
     )
